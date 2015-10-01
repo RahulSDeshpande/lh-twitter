@@ -1,9 +1,7 @@
 package in.jigyasacodes.lh_twitter.api;
 
 import in.jigyasacodes.lh_twitter.data.usertimeline.UserTimeLine;
-import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
@@ -12,18 +10,21 @@ import retrofit.http.Query;
  */
 public interface TwitterApi {
 
-		@GET("/")
-		UserTimeLine getUserTimeline(@Query("count") int count);
+	@GET("/statuses/user_timeline.json")
+	UserTimeLine getAllUserTimeline(@Query("count") int count);
 
+	@GET("/statuses/user_timeline.json")
+	UserTimeLine getUserTimeline(@Query("count") int count);
 
+	@GET("/statuses/user_timeline.json")
+	UserTimeLine getUserTimeline(@Query("count") int count, @Query("since_id") int sinceId);
 
-		@GET("/group/{id}/users")
-		Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
+	@GET("/statuses/update.json")
+	UserTimeLine updateStatusTweet(@Query("status") String status);
 
+	@GET("/statuses/update.json")
+	UserTimeLine updateStatusTweet(@Query("status") String status, @Query("in_reply_to_status_id") String inReplyToStatusId);
 
-
-		@POST("/users/new")
-		Call<User> createUser(@Body User user);
-
-	}
+	@GET("/statuses/retweet/{id}.json")
+	UserTimeLine retweetATweet(@Path("id") String id, @Query("trim_user") String trimUser);
 }
