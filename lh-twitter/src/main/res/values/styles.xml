@@ -1,15 +1,30 @@
 <resources>
 
-    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+    <style name="LHMaterialTheme" parent="LHMaterialTheme.Base">
 
     </style>
 
-    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.NoActionBar">
+    <style name="LHMaterialTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="LHMaterialTheme.LoginAct" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/CustomActionbar</item>
+    </style>
+
+    <style name="CustomActionbar" parent="android:Widget.ActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:titleTextStyle">@style/CustomActionbar.TextStyle</item>
+    </style>
+
+    <style name="CustomActionbar.TextStyle" parent="android:TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

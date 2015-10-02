@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import in.jigyasacodes.lh_twitter.R;
 
 
-public class FriendsFrag extends Fragment {
+public class TweetFrag extends Fragment {
 
 
-    public FriendsFrag() {
+    public TweetFrag() {
         // Required empty public constructor
     }
 

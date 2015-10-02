@@ -1,11 +1,14 @@
 package in.jigyasacodes.lh_twitter.data;
 
-import java.util.Random;
-
-import in.jigyasacodes.lh_twitter.R;
-
 public class Consts {
 
+	public static final String APPLICATION_NAME = "LH Twitter";
+
+	public static final String LOGIN_ERROR_USERNAME = "Username must not be blank";
+	public static final String LOGIN_ERROR_Password= "password.length() == 0 !!";
+
+
+	/*
 	public static final String[] LOREM_IPSUM = {
 			"Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
 			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale",
@@ -155,5 +158,5 @@ public class Consts {
 				return R.drawable.cheese_5;
 		}
 	}
-
+	*/
 }

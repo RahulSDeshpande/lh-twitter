@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,13 +13,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import in.jigyasacodes.lh_twitter.R;
-import in.jigyasacodes.lh_twitter.ui.frag.FriendsFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.HomeFrag;
-import in.jigyasacodes.lh_twitter.ui.frag.MessagesFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.NavDrawerFrag;
+import in.jigyasacodes.lh_twitter.ui.frag.TimelineFrag;
+import in.jigyasacodes.lh_twitter.ui.frag.TweetFrag;
 
 
-public class TwitterMainAct extends ActionBarActivity implements NavDrawerFrag.FragmentDrawerListener {
+public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener {
 
 	private static String TAG = MainActivity.class.getSimpleName();
 
@@ -65,7 +65,7 @@ public class TwitterMainAct extends ActionBarActivity implements NavDrawerFrag.F
 			return true;
 		}
 
-		if(id == R.id.action_search){
+		if (id == R.id.action_search) {
 			Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
 			return true;
 		}
@@ -87,11 +87,11 @@ public class TwitterMainAct extends ActionBarActivity implements NavDrawerFrag.F
 				title = getString(R.string.title_home);
 				break;
 			case 1:
-				fragment = new FriendsFrag();
-				title = getString(R.string.title_friends);
+				fragment = new TweetFrag();
+				title = getString(R.string.title_tweet);
 				break;
 			case 2:
-				fragment = new MessagesFrag();
+				fragment = new TimelineFrag();
 				title = getString(R.string.title_messages);
 				break;
 			default:
