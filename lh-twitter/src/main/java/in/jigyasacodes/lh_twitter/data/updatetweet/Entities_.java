@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 
-@Generated("org.jsonschema2pojo")
 public class Entities_ {
 
     private List<Object> hashtags = new ArrayList<Object>();
