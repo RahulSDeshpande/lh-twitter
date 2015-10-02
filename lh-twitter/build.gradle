@@ -33,4 +33,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
     compile 'com.squareup.okio:okio:1.5.0'
+
+    //  Scribe for OAuth
+    compile 'org.scribe:scribe:1.3.7'
 }

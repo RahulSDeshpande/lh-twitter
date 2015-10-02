@@ -1,17 +1,11 @@
 
 package in.jigyasacodes.lh_twitter.data.usertimeline;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.Generated;
-
-@Generated("org.jsonschema2pojo")
 public class Large___ {
 
     private Integer w;
     private Integer h;
     private String resize;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -65,14 +59,6 @@ public class Large___ {
      */
     public void setResize(String resize) {
         this.resize = resize;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

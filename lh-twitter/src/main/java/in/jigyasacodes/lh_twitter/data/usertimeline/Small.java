@@ -3,9 +3,7 @@ package in.jigyasacodes.lh_twitter.data.usertimeline;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 
-@Generated("org.jsonschema2pojo")
 public class Small {
 
     private Integer w;
