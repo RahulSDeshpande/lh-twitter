@@ -3,7 +3,6 @@ package in.jigyasacodes.lh_twitter.data.updatetweet;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 
 public class UpdateTweet {
 
