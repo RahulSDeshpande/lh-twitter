@@ -1,5 +1,7 @@
 package in.jigyasacodes.lh_twitter.ui.act;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,10 +9,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.ui.frag.HomeFrag;
@@ -23,12 +32,31 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 
 	private static String TAG = MainActivity.class.getSimpleName();
 
+	private static final String TWITTER_VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
+
+	private ProgressDialog mProgressDialog = null;
+
 	private Toolbar mToolbar;
 	private NavDrawerFrag drawerFragment;
 
+	private OAuthService oAuthService;
+	private Token token;
+
+	public TwitterMainAct()
+	{
+	}
+
+	public TwitterMainAct(OAuthService oauthService, Token token)
+	{
+		this.oAuthService = oauthService;
+		this.token = token;
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main_lp);
 
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,21 +87,78 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 						+ "\n\n" + REQUEST_KEY + "\n" + REQUEST_TOKEN
 						+ "\n\n" + ACCESS_KEY + "\n" + ACCESS_SECRET
 						, Toast.LENGTH_LONG).show();
+
+		//  this.oauthRequest();
 	}
 
+	private Response response;
+	private void oauthRequest()
+	{
+		mProgressDialog = new ProgressDialog(this);
+		mProgressDialog.setIndeterminate(true);
+		mProgressDialog.setCanceledOnTouchOutside(false);
+		mProgressDialog.setCancelable(false);
+
+		(new AsyncTask<Void, Void, Response>() {
+
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+
+				mProgressDialog.setMessage("Verifying your credentials with Twitter..");
+				mProgressDialog.show();
+			}
+
+			@Override
+			protected Response doInBackground(Void... params) {
+
+				Log.e("----------------------", "1==============================================");
+
+				OAuthRequest request = new OAuthRequest(Verb.GET, TWITTER_VERIFY_CREDENTIALS_URL);
+
+				Log.e("----------------------", "2==============================================");
+
+				oAuthService.signRequest(token, request);
+
+				Log.e("----------------------", "3==============================================");
+
+				return request.send();
+			}
+
+			@Override
+			protected void onPostExecute(Response resp) {
+
+				Log.e("----------------------", "4==============================================");
+				Log.e("-----RESPONSE-----", resp.getBody());
+				Log.e("----------------------", "5==============================================");
+
+				response = resp;
+
+				mProgressDialog.dismiss();
+
+				runOnUiThread(new Runnable() {
+					public void run() {
+
+						Toast.makeText(TwitterMainAct.this,
+								"RESPONSE_BODY:\n\n"+response.getBody(),
+								Toast.LENGTH_SHORT)
+								.show();
+					}
+				});
+			}
+		}).execute();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 
 		//noinspection SimplifiableIfStatement

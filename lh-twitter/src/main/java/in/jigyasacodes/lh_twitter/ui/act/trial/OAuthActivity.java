@@ -13,28 +13,32 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Token;
+import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
-import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
 
-public class OauthActivity extends Activity {
+public class OAuthActivity extends Activity {
 
 	private static final String CALLBACK_URL = "http://jigyasacodes.in";
 	private static final String TWITTER_API_URL = "https://api.twitter.com/";
 
 	private ProgressDialog mProgressDialog = null;
 
-	private String mAccessToken = "";
+	private String mStrAccessToken = "";
 
 	private WebView mWebView;
 	private OAuthService mOauthService;
-	private Token mRequestToken;
+	private Token mRequestToken, mAccessToken;
+
 	private WebViewClient mWebViewClient = new WebViewClient() {
 
 		@Override
@@ -92,10 +96,12 @@ public class OauthActivity extends Activity {
 					@Override
 					protected void onPostExecute(Token accessToken) {
 
-						mAccessToken = accessToken.getToken().trim();
+						mAccessToken = accessToken;
+
+						mStrAccessToken = accessToken.getToken().trim();
 
 						Log.e("----------------------", "==============================================");
-						Log.e("-----ACCESS_TOKEN-----", mAccessToken);
+						Log.e("-----ACCESS_TOKEN-----", mStrAccessToken);
 						Log.e("----------------------", "==============================================");
 
 						saveTokens(accessToken, mRequestToken);
@@ -105,7 +111,7 @@ public class OauthActivity extends Activity {
 					}
 				}).execute();
 
-				//  Toast.makeText(OauthActivity.this, "ACCESS_TOKEN:\n\n" + mAccessToken, Toast.LENGTH_LONG).show();
+				//  Toast.makeText(OAuthActivity.this, "ACCESS_TOKEN:\n\n" + mAccessToken, Toast.LENGTH_LONG).show();
 			} else {
 
 				super.onPageStarted(view, url, favicon);
@@ -188,12 +194,81 @@ public class OauthActivity extends Activity {
 
 		spEditor.apply();
 
-		completeLoginProcess(TwitterMainAct.class);
+		this.oauthRequest();
+
+		//completeLoginProcess(TwitterMainAct.class);
 	}
 
 	private void completeLoginProcess(Class destinationClass) {
 
-		startActivity(new Intent(OauthActivity.this, destinationClass));
+		//  Intent i = new Intent();
+
+		//  new TwitterMainAct(mOauthService,mAccessToken);
+		startActivity(new Intent(OAuthActivity.this, destinationClass));
+	}
+
+	private Response response;
+	private static final String TWITTER_VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
+
+	private void oauthRequest()
+	{
+		mProgressDialog = new ProgressDialog(this);
+		mProgressDialog.setIndeterminate(true);
+		mProgressDialog.setCanceledOnTouchOutside(false);
+		mProgressDialog.setCancelable(false);
+
+		(new AsyncTask<Void, Void, String>() {
+
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+
+				mProgressDialog.setMessage("Verifying your credentials with Twitter..");
+				mProgressDialog.show();
+			}
+
+			@Override
+			protected String doInBackground(Void... params) {
+
+				Log.e("----------------------", "1==============================================");
+
+				OAuthRequest request = new OAuthRequest(Verb.GET, TWITTER_VERIFY_CREDENTIALS_URL);
+
+				Log.e("----------------------", "2==============================================");
+
+				mOauthService.signRequest(mAccessToken, request);
+
+				Log.e("----------------------", "3==============================================");
+
+				response = request.send();
+
+				return response.getBody();
+			}
+
+			@Override
+			protected void onPostExecute(final String RESP_BODY) {
+
+				Log.e("----------------------", "4==============================================");
+				Log.e("-----RESPONSE-----", RESP_BODY);
+				Log.e("----------------------", "5==============================================");
+
+				mProgressDialog.dismiss();
+
+				Log.e("----------------------",
+						"========================\n"
+								+RESP_BODY+"\n======================");
+
+				runOnUiThread(new Runnable() {
+					public void run() {
+
+						Toast.makeText(OAuthActivity.this,
+								"RESPONSE_BODY:\n\n" + RESP_BODY,
+								Toast.LENGTH_SHORT)
+								.show();
+					}
+				});
+			}
+		}).execute();
 	}
 
 	/*
