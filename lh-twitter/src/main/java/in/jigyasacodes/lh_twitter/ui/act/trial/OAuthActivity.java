@@ -13,7 +13,6 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
@@ -90,13 +89,15 @@ public class OAuthActivity extends Activity {
 
 						Log.e("----------------------", "3==============================================");
 
-						return mOauthService.getAccessToken(mRequestToken, verifier);
+						mAccessToken =mOauthService.getAccessToken(mRequestToken, verifier);
+
+						oauthRequest();
+
+						return mAccessToken;
 					}
 
 					@Override
 					protected void onPostExecute(Token accessToken) {
-
-						mAccessToken = accessToken;
 
 						mStrAccessToken = accessToken.getToken().trim();
 
@@ -194,7 +195,7 @@ public class OAuthActivity extends Activity {
 
 		spEditor.apply();
 
-		this.oauthRequest();
+		//  this.oauthRequest();
 
 		//completeLoginProcess(TwitterMainAct.class);
 	}
@@ -208,16 +209,28 @@ public class OAuthActivity extends Activity {
 	}
 
 	private Response response;
-	private static final String TWITTER_VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
+	private static final String TWITTER_VERIFY_CREDENTIALS_URL
+			= "https://api.twitter.com/1.1/account/verify_credentials.json";
 
 	private void oauthRequest()
 	{
-		mProgressDialog = new ProgressDialog(this);
-		mProgressDialog.setIndeterminate(true);
-		mProgressDialog.setCanceledOnTouchOutside(false);
-		mProgressDialog.setCancelable(false);
+		Log.e("----------------------", "1==============================================");
 
-		(new AsyncTask<Void, Void, String>() {
+		OAuthRequest request = new OAuthRequest(Verb.GET, TWITTER_VERIFY_CREDENTIALS_URL);
+
+		Log.e("----------------------", "2==============================================");
+
+		mOauthService.signRequest(mAccessToken, request);
+
+		Log.e("----------------------", "3==============================================");
+
+		response = request.send();
+
+		Log.e("----------------------", "4==============================================");
+		Log.e("-----RESPONSE-----", response.getBody());
+		Log.e("----------------------", "5==============================================");
+
+		new AsyncTask<Void, Void, String>() {
 
 			@Override
 			protected void onPreExecute() {
@@ -258,17 +271,21 @@ public class OAuthActivity extends Activity {
 						"========================\n"
 								+RESP_BODY+"\n======================");
 
+				/*
 				runOnUiThread(new Runnable() {
+
 					public void run() {
 
 						Toast.makeText(OAuthActivity.this,
 								"RESPONSE_BODY:\n\n" + RESP_BODY,
 								Toast.LENGTH_SHORT)
 								.show();
+
 					}
 				});
+				*/
 			}
-		}).execute();
+		};//.execute();
 	}
 
 	/*
