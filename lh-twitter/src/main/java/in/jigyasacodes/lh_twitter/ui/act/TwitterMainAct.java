@@ -43,6 +43,22 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 
 		// display the first navigation drawer view on app launch
 		displayView(0);
+
+		String API_KEY = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-api-key", "N/A");
+		String API_SECRET = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-api-secret", "N/A");
+
+		String REQUEST_KEY = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-request-key", "N/A");
+		String REQUEST_TOKEN = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-request-secret", "N/A");
+
+		String ACCESS_KEY = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-access-key", "N/A");
+		String ACCESS_SECRET = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-access-secret", "N/A");
+
+		Toast.makeText
+				(this, "API, REQUEST & ACCESS KEYs:\n\n"
+						+ API_KEY + "\n" + API_SECRET
+						+ "\n\n" + REQUEST_KEY + "\n" + REQUEST_TOKEN
+						+ "\n\n" + ACCESS_KEY + "\n" + ACCESS_SECRET
+						, Toast.LENGTH_LONG).show();
 	}
 
 
@@ -79,8 +95,10 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 	}
 
 	private void displayView(int position) {
+
 		Fragment fragment = null;
 		String title = getString(R.string.app_name);
+
 		switch (position) {
 			case 0:
 				fragment = new HomeFrag();
@@ -107,5 +125,11 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 			// set the toolbar title
 			getSupportActionBar().setTitle(title);
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+
+		super.onBackPressed();
 	}
 }

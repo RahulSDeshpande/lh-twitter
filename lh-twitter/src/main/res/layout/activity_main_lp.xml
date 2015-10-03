@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="in.jigyasacodes.lpnavdrawer.ui.frag.NavDrawerFrag"
+        android:name="in.jigyasacodes.lh_twitter.ui.frag.NavDrawerFrag"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

@@ -1,0 +1,205 @@
+package in.jigyasacodes.lh_twitter.ui.act.trial;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.builder.api.TwitterApi;
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
+
+import in.jigyasacodes.lh_twitter.R;
+import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
+
+public class OauthActivity extends Activity {
+
+	private static final String CALLBACK_URL = "http://jigyasacodes.in";
+	private static final String TWITTER_API_URL = "https://api.twitter.com/";
+
+	private ProgressDialog mProgressDialog = null;
+
+	private String mAccessToken = "";
+
+	private WebView mWebView;
+	private OAuthService mOauthService;
+	private Token mRequestToken;
+	private WebViewClient mWebViewClient = new WebViewClient() {
+
+		@Override
+		public void onPageFinished(WebView view, String url) {
+
+			if ((url != null) && (url.startsWith(TWITTER_API_URL))) {
+
+				mWebView.setVisibility(View.VISIBLE);
+				mProgressDialog.dismiss();
+
+			} else {
+
+				super.onPageFinished(view, url);
+			}
+		}
+
+		@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+			Log.e("----------------------", "11==============================================");
+
+			if ((url != null) && (url.startsWith(CALLBACK_URL))) {
+
+				// Override webview when user came back to CALLBACK_URL
+				mWebView.stopLoading();
+				mWebView.setVisibility(View.GONE);
+				// Hide webview if necessary
+
+				Uri uri = Uri.parse(url);
+
+				Log.e("----------------------", "1==============================================");
+
+				final Verifier verifier = new Verifier(uri.getQueryParameter("oauth_verifier"));
+
+				Log.e("----------------------", "2==============================================");
+
+				(new AsyncTask<Void, Void, Token>() {
+
+					@Override
+					protected void onPreExecute() {
+						super.onPreExecute();
+
+						mProgressDialog.setMessage("Authenticating your credentials with Twitter..");
+						mProgressDialog.show();
+					}
+
+					@Override
+					protected Token doInBackground(Void... params) {
+
+						Log.e("----------------------", "3==============================================");
+
+						return mOauthService.getAccessToken(mRequestToken, verifier);
+					}
+
+					@Override
+					protected void onPostExecute(Token accessToken) {
+
+						mAccessToken = accessToken.getToken().trim();
+
+						Log.e("----------------------", "==============================================");
+						Log.e("-----ACCESS_TOKEN-----", mAccessToken);
+						Log.e("----------------------", "==============================================");
+
+						saveTokens(accessToken, mRequestToken);
+
+						//  finish();
+						mProgressDialog.dismiss();
+					}
+				}).execute();
+
+				//  Toast.makeText(OauthActivity.this, "ACCESS_TOKEN:\n\n" + mAccessToken, Toast.LENGTH_LONG).show();
+			} else {
+
+				super.onPageStarted(view, url, favicon);
+			}
+		}
+	};
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.activity_login_1);
+
+		mOauthService = new ServiceBuilder()
+				.provider(TwitterApi.class)
+				.apiKey(this.getString(R.string.api_key))
+				.apiSecret(this.getString(R.string.api_secret))
+				.callback("http://jigyasacodes.in")
+				.build();
+
+		mWebView = (WebView) findViewById(R.id.wvTwitterOAuth);
+		mWebView.clearCache(true);
+		mWebView.getSettings().setJavaScriptEnabled(true);
+		mWebView.getSettings().setBuiltInZoomControls(true);
+		mWebView.getSettings().setDisplayZoomControls(false);
+		mWebView.setWebViewClient(mWebViewClient);
+		mWebView.setWebChromeClient(new WebChromeClient());
+
+		mProgressDialog = new ProgressDialog(this);
+		mProgressDialog.setIndeterminate(true);
+		mProgressDialog.setCanceledOnTouchOutside(false);
+		mProgressDialog.setCancelable(false);
+		//  progressDialog.show();
+
+		startAuthorize();
+	}
+
+	private void startAuthorize() {
+
+		(new AsyncTask<Void, Void, String>() {
+
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+
+				mProgressDialog.setMessage("Loading Twitter Login Page..");
+				mProgressDialog.show();
+			}
+
+			@Override
+			protected String doInBackground(Void... params) {
+
+				mRequestToken = mOauthService.getRequestToken();
+				return mOauthService.getAuthorizationUrl(mRequestToken);
+			}
+
+			@Override
+			protected void onPostExecute(String url) {
+
+				mWebView.loadUrl(url);
+				//  mProgressDialog.dismiss();
+			}
+		}).execute();
+	}
+
+	private void saveTokens(final Token REQUEST_TOKEN, final Token ACCESS_TOKEN) {
+
+		SharedPreferences sharedPrefs = getSharedPreferences("lh-twitter-tokens", 0);
+		SharedPreferences.Editor spEditor = sharedPrefs.edit();
+
+		spEditor.putString("lh-twitter-tokens-api-key", this.getString(R.string.api_key));
+		spEditor.putString("lh-twitter-tokens-api-secret", this.getString(R.string.api_secret));
+
+		spEditor.putString("lh-twitter-tokens-request-key", REQUEST_TOKEN.getToken());
+		spEditor.putString("lh-twitter-tokens-request-secret", REQUEST_TOKEN.getSecret());
+
+		spEditor.putString("lh-twitter-tokens-access-key", ACCESS_TOKEN.getToken());
+		spEditor.putString("lh-twitter-tokens-access-secret", ACCESS_TOKEN.getSecret());
+
+		spEditor.apply();
+
+		completeLoginProcess(TwitterMainAct.class);
+	}
+
+	private void completeLoginProcess(Class destinationClass) {
+
+		startActivity(new Intent(OauthActivity.this, destinationClass));
+	}
+
+	/*
+	private interface OnAccessTokenFetchedListener{
+
+		private void OnAccessTokenFetched(final Token TOKEN);
+	}
+	*/
+}

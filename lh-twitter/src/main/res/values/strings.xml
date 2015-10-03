@@ -28,4 +28,7 @@
     <string name="title_home">Home</string>
 
     <string name="text_disclaimer">Disclaimer:\n\nThis app won\'t capture your credentials or indulge in any anti-privacy activities\nYou\'re safe :)\n\nJigyasa Codes</string>
+
+    <string name="api_key">G7sol9ofG6c3W4vp5tesDdi0m</string>
+    <string name="api_secret">AF9PiVvdGdE0TDB9qYbsCbM9z2Z82mjmIsiiL5yea1RpLnEtgb</string>
 </resources>
