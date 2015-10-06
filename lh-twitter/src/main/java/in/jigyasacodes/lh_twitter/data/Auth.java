@@ -8,15 +8,15 @@ import org.scribe.oauth.OAuthService;
  */
 public class Auth {
 
-	private Token mToken;
-	private OAuthService mOAuthService;
+	private static Token mToken;
+	private static OAuthService mOAuthService;
 
 	public Token getToken() {
 		return mToken;
 	}
 
 	public void setToken(Token token) {
-		this.mToken = token;
+		Auth.mToken = token;
 	}
 
 	public OAuthService getOAuthService() {
@@ -24,6 +24,6 @@ public class Auth {
 	}
 
 	public void setOAuthService(OAuthService oauthService) {
-		this.mOAuthService = oauthService;
+		Auth.mOAuthService = oauthService;
 	}
 }

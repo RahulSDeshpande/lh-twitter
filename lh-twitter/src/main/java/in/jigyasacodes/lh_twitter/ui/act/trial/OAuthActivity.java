@@ -1,6 +1,5 @@
 package in.jigyasacodes.lh_twitter.ui.act.trial;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -25,19 +25,18 @@ import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
 
-public class OAuthActivity extends Activity {
+public class OAuthActivity extends AppCompatActivity {
 
 	private static final String CALLBACK_URL = "http://jigyasacodes.in";
 	private static final String TWITTER_API_URL = "https://api.twitter.com/";
-
+	private static final String TWITTER_VERIFY_CREDENTIALS_URL
+			= "https://api.twitter.com/1.1/account/verify_credentials.json";
 	private ProgressDialog mProgressDialog = null;
-
 	private String mStrAccessToken = "";
-
 	private WebView mWebView;
 	private OAuthService mOauthService;
 	private Token mRequestToken, mAccessToken;
-
+	private Response response;
 	private WebViewClient mWebViewClient = new WebViewClient() {
 
 		@Override
@@ -89,7 +88,7 @@ public class OAuthActivity extends Activity {
 
 						Log.e("----------------------", "3==============================================");
 
-						mAccessToken =mOauthService.getAccessToken(mRequestToken, verifier);
+						mAccessToken = mOauthService.getAccessToken(mRequestToken, verifier);
 
 						oauthRequest();
 
@@ -208,12 +207,7 @@ public class OAuthActivity extends Activity {
 		startActivity(new Intent(OAuthActivity.this, destinationClass));
 	}
 
-	private Response response;
-	private static final String TWITTER_VERIFY_CREDENTIALS_URL
-			= "https://api.twitter.com/1.1/account/verify_credentials.json";
-
-	private void oauthRequest()
-	{
+	private void oauthRequest() {
 		Log.e("----------------------", "1==============================================");
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, TWITTER_VERIFY_CREDENTIALS_URL);
@@ -269,7 +263,7 @@ public class OAuthActivity extends Activity {
 
 				Log.e("----------------------",
 						"========================\n"
-								+RESP_BODY+"\n======================");
+								+ RESP_BODY + "\n======================");
 
 				/*
 				runOnUiThread(new Runnable() {
