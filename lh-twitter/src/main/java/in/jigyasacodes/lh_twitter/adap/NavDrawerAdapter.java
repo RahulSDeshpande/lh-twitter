@@ -20,6 +20,7 @@ import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
  */
 public class NavDrawerAdapter extends RecyclerView.Adapter<NavDrawerAdapter.MyViewHolder> {
 
+	// Vitthal trial
 	private List<NavDrawerItem> listNavDrawer = Collections.emptyList();
 	private LayoutInflater layoutInflater;
 	private Context ctx;
