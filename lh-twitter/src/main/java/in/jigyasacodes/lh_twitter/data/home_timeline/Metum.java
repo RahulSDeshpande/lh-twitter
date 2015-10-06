@@ -1,38 +1,89 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class UserTimeLine {
+public class Metum {
 
+    @SerializedName("created_at")
+    @Expose
     private String createdAt;
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("id_str")
+    @Expose
     private String idStr;
+    @SerializedName("text")
+    @Expose
     private String text;
+    @SerializedName("source")
+    @Expose
     private String source;
+    @SerializedName("truncated")
+    @Expose
     private Boolean truncated;
+    @SerializedName("in_reply_to_status_id")
+    @Expose
     private Object inReplyToStatusId;
+    @SerializedName("in_reply_to_status_id_str")
+    @Expose
     private Object inReplyToStatusIdStr;
+    @SerializedName("in_reply_to_user_id")
+    @Expose
     private Object inReplyToUserId;
+    @SerializedName("in_reply_to_user_id_str")
+    @Expose
     private Object inReplyToUserIdStr;
+    @SerializedName("in_reply_to_screen_name")
+    @Expose
     private Object inReplyToScreenName;
+    @SerializedName("user")
+    @Expose
     private User user;
+    @SerializedName("geo")
+    @Expose
     private Object geo;
+    @SerializedName("coordinates")
+    @Expose
     private Object coordinates;
+    @SerializedName("place")
+    @Expose
     private Object place;
+    @SerializedName("contributors")
+    @Expose
     private Object contributors;
-    private RetweetedStatus retweetedStatus;
+    @SerializedName("is_quote_status")
+    @Expose
     private Boolean isQuoteStatus;
+    @SerializedName("retweet_count")
+    @Expose
     private Integer retweetCount;
+    @SerializedName("favorite_count")
+    @Expose
     private Integer favoriteCount;
-    private Entities___ entities;
-    private ExtendedEntities_ extendedEntities;
+    @SerializedName("entities")
+    @Expose
+    private Entities_ entities;
+    @SerializedName("extended_entities")
+    @Expose
+    private ExtendedEntities extendedEntities;
+    @SerializedName("favorited")
+    @Expose
     private Boolean favorited;
+    @SerializedName("retweeted")
+    @Expose
     private Boolean retweeted;
+    @SerializedName("possibly_sensitive")
+    @Expose
     private Boolean possiblySensitive;
+    @SerializedName("possibly_sensitive_appealable")
+    @Expose
+    private Boolean possiblySensitiveAppealable;
+    @SerializedName("lang")
+    @Expose
     private String lang;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -325,24 +376,6 @@ public class UserTimeLine {
     /**
      * 
      * @return
-     *     The retweetedStatus
-     */
-    public RetweetedStatus getRetweetedStatus() {
-        return retweetedStatus;
-    }
-
-    /**
-     * 
-     * @param retweetedStatus
-     *     The retweeted_status
-     */
-    public void setRetweetedStatus(RetweetedStatus retweetedStatus) {
-        this.retweetedStatus = retweetedStatus;
-    }
-
-    /**
-     * 
-     * @return
      *     The isQuoteStatus
      */
     public Boolean getIsQuoteStatus() {
@@ -399,7 +432,7 @@ public class UserTimeLine {
      * @return
      *     The entities
      */
-    public Entities___ getEntities() {
+    public Entities_ getEntities() {
         return entities;
     }
 
@@ -408,7 +441,7 @@ public class UserTimeLine {
      * @param entities
      *     The entities
      */
-    public void setEntities(Entities___ entities) {
+    public void setEntities(Entities_ entities) {
         this.entities = entities;
     }
 
@@ -417,7 +450,7 @@ public class UserTimeLine {
      * @return
      *     The extendedEntities
      */
-    public ExtendedEntities_ getExtendedEntities() {
+    public ExtendedEntities getExtendedEntities() {
         return extendedEntities;
     }
 
@@ -426,7 +459,7 @@ public class UserTimeLine {
      * @param extendedEntities
      *     The extended_entities
      */
-    public void setExtendedEntities(ExtendedEntities_ extendedEntities) {
+    public void setExtendedEntities(ExtendedEntities extendedEntities) {
         this.extendedEntities = extendedEntities;
     }
 
@@ -487,6 +520,24 @@ public class UserTimeLine {
     /**
      * 
      * @return
+     *     The possiblySensitiveAppealable
+     */
+    public Boolean getPossiblySensitiveAppealable() {
+        return possiblySensitiveAppealable;
+    }
+
+    /**
+     * 
+     * @param possiblySensitiveAppealable
+     *     The possibly_sensitive_appealable
+     */
+    public void setPossiblySensitiveAppealable(Boolean possiblySensitiveAppealable) {
+        this.possiblySensitiveAppealable = possiblySensitiveAppealable;
+    }
+
+    /**
+     * 
+     * @return
      *     The lang
      */
     public String getLang() {
@@ -500,14 +551,6 @@ public class UserTimeLine {
      */
     public void setLang(String lang) {
         this.lang = lang;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

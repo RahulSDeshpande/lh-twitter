@@ -1,20 +1,43 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Medium {
 
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("id_str")
+    @Expose
     private String idStr;
+    @SerializedName("indices")
+    @Expose
     private List<Integer> indices = new ArrayList<Integer>();
+    @SerializedName("media_url")
+    @Expose
     private String mediaUrl;
+    @SerializedName("media_url_https")
+    @Expose
     private String mediaUrlHttps;
+    @SerializedName("url")
+    @Expose
     private String url;
+    @SerializedName("display_url")
+    @Expose
     private String displayUrl;
+    @SerializedName("expanded_url")
+    @Expose
     private String expandedUrl;
+    @SerializedName("type")
+    @Expose
     private String type;
+    @SerializedName("sizes")
+    @Expose
     private Sizes sizes;
 
     /**

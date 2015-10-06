@@ -1,15 +1,20 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class Large_ {
+public class Large {
 
+    @SerializedName("w")
+    @Expose
     private Integer w;
+    @SerializedName("h")
+    @Expose
     private Integer h;
+    @SerializedName("resize")
+    @Expose
     private String resize;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 

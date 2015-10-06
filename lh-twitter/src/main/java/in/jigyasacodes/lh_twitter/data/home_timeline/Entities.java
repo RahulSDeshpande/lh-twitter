@@ -1,10 +1,17 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
 
-public class Entities_ {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class Entities {
+
+    @SerializedName("url")
+    @Expose
     private Url url;
-    private Description_ description;
+    @SerializedName("description")
+    @Expose
+    private Description description;
 
     /**
      * 
@@ -29,7 +36,7 @@ public class Entities_ {
      * @return
      *     The description
      */
-    public Description_ getDescription() {
+    public Description getDescription() {
         return description;
     }
 
@@ -38,7 +45,7 @@ public class Entities_ {
      * @param description
      *     The description
      */
-    public void setDescription(Description_ description) {
+    public void setDescription(Description description) {
         this.description = description;
     }
 

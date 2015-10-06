@@ -1,11 +1,16 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Description {
 
+    @SerializedName("urls")
+    @Expose
     private List<Object> urls = new ArrayList<Object>();
 
     /**
@@ -25,6 +30,5 @@ public class Description {
     public void setUrls(List<Object> urls) {
         this.urls = urls;
     }
-
 
 }

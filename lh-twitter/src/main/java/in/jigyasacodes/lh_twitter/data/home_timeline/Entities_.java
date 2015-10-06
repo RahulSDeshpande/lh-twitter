@@ -1,23 +1,33 @@
 
-package in.jigyasacodes.lh_twitter.data.usertimeline;
+package in.jigyasacodes.lh_twitter.data.home_timeline;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entities__ {
+public class Entities_ {
 
-    private List<Object> hashtags = new ArrayList<Object>();
+    @SerializedName("hashtags")
+    @Expose
+    private List<Hashtag> hashtags = new ArrayList<Hashtag>();
+    @SerializedName("symbols")
+    @Expose
     private List<Object> symbols = new ArrayList<Object>();
-    private List<Object> userMentions = new ArrayList<Object>();
+    @SerializedName("user_mentions")
+    @Expose
+    private List<UserMention> userMentions = new ArrayList<UserMention>();
+    @SerializedName("urls")
+    @Expose
     private List<Url__> urls = new ArrayList<Url__>();
-    private List<Medium> media = new ArrayList<Medium>();
 
     /**
      * 
      * @return
      *     The hashtags
      */
-    public List<Object> getHashtags() {
+    public List<Hashtag> getHashtags() {
         return hashtags;
     }
 
@@ -26,7 +36,7 @@ public class Entities__ {
      * @param hashtags
      *     The hashtags
      */
-    public void setHashtags(List<Object> hashtags) {
+    public void setHashtags(List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }
 
@@ -53,7 +63,7 @@ public class Entities__ {
      * @return
      *     The userMentions
      */
-    public List<Object> getUserMentions() {
+    public List<UserMention> getUserMentions() {
         return userMentions;
     }
 
@@ -62,7 +72,7 @@ public class Entities__ {
      * @param userMentions
      *     The user_mentions
      */
-    public void setUserMentions(List<Object> userMentions) {
+    public void setUserMentions(List<UserMention> userMentions) {
         this.userMentions = userMentions;
     }
 
@@ -82,24 +92,6 @@ public class Entities__ {
      */
     public void setUrls(List<Url__> urls) {
         this.urls = urls;
-    }
-
-    /**
-     * 
-     * @return
-     *     The media
-     */
-    public List<Medium> getMedia() {
-        return media;
-    }
-
-    /**
-     * 
-     * @param media
-     *     The media
-     */
-    public void setMedia(List<Medium> media) {
-        this.media = media;
     }
 
 }
