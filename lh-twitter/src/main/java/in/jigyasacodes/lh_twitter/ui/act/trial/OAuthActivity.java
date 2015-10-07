@@ -14,6 +14,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.gson.Gson;
+
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.OAuthRequest;
@@ -24,7 +26,10 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
+import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
 
+//	↗
 public class OAuthActivity extends AppCompatActivity {
 
 	private static final String CALLBACK_URL = "http://jigyasacodes.in";
@@ -196,7 +201,12 @@ public class OAuthActivity extends AppCompatActivity {
 
 		//  this.oauthRequest();
 
-		//completeLoginProcess(TwitterMainAct.class);
+		Auth.setRequestToken(mRequestToken);
+		Auth.setAccessToken(mAccessToken);
+		Auth.setOAuthService(mOauthService);
+		Auth.setMetaCreds(new Gson().fromJson());
+
+		completeLoginProcess(TwitterMainAct.class);
 	}
 
 	private void completeLoginProcess(Class destinationClass) {

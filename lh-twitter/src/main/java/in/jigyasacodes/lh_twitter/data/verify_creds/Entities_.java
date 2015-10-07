@@ -1,18 +1,29 @@
 
-package in.jigyasacodes.lh_twitter.data.updatetweet;
+package in.jigyasacodes.lh_twitter.data.verify_creds;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Entities_ {
 
+    @SerializedName("hashtags")
+    @Expose
     private List<Object> hashtags = new ArrayList<Object>();
+    @SerializedName("symbols")
+    @Expose
     private List<Object> symbols = new ArrayList<Object>();
+    @SerializedName("user_mentions")
+    @Expose
     private List<Object> userMentions = new ArrayList<Object>();
-    private List<Object> urls = new ArrayList<Object>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @SerializedName("urls")
+    @Expose
+    private List<Url> urls = new ArrayList<Url>();
+    @SerializedName("media")
+    @Expose
+    private List<Medium> media = new ArrayList<Medium>();
 
     /**
      * 
@@ -73,7 +84,7 @@ public class Entities_ {
      * @return
      *     The urls
      */
-    public List<Object> getUrls() {
+    public List<Url> getUrls() {
         return urls;
     }
 
@@ -82,16 +93,26 @@ public class Entities_ {
      * @param urls
      *     The urls
      */
-    public void setUrls(List<Object> urls) {
+    public void setUrls(List<Url> urls) {
         this.urls = urls;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    /**
+     * 
+     * @return
+     *     The media
+     */
+    public List<Medium> getMedia() {
+        return media;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    /**
+     * 
+     * @param media
+     *     The media
+     */
+    public void setMedia(List<Medium> media) {
+        this.media = media;
     }
 
 }

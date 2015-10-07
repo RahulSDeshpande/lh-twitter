@@ -1,30 +1,32 @@
 
-package in.jigyasacodes.lh_twitter.data.updatetweet;
+package in.jigyasacodes.lh_twitter.data.update_tweet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Entities {
+public class Description {
 
-    private Description description;
+    private List<Object> urls = new ArrayList<Object>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The description
+     *     The urls
      */
-    public Description getDescription() {
-        return description;
+    public List<Object> getUrls() {
+        return urls;
     }
 
     /**
      * 
-     * @param description
-     *     The description
+     * @param urls
+     *     The urls
      */
-    public void setDescription(Description description) {
-        this.description = description;
+    public void setUrls(List<Object> urls) {
+        this.urls = urls;
     }
 
     public Map<String, Object> getAdditionalProperties() {

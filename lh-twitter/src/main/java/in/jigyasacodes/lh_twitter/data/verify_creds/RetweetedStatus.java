@@ -1,35 +1,77 @@
 
-package in.jigyasacodes.lh_twitter.data.updatetweet;
+package in.jigyasacodes.lh_twitter.data.verify_creds;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class UpdateTweet {
+public class RetweetedStatus {
 
+    @SerializedName("created_at")
+    @Expose
     private String createdAt;
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("id_str")
+    @Expose
     private String idStr;
+    @SerializedName("text")
+    @Expose
     private String text;
+    @SerializedName("source")
+    @Expose
     private String source;
+    @SerializedName("truncated")
+    @Expose
     private Boolean truncated;
+    @SerializedName("in_reply_to_status_id")
+    @Expose
     private Object inReplyToStatusId;
+    @SerializedName("in_reply_to_status_id_str")
+    @Expose
     private Object inReplyToStatusIdStr;
+    @SerializedName("in_reply_to_user_id")
+    @Expose
     private Object inReplyToUserId;
+    @SerializedName("in_reply_to_user_id_str")
+    @Expose
     private Object inReplyToUserIdStr;
+    @SerializedName("in_reply_to_screen_name")
+    @Expose
     private Object inReplyToScreenName;
-    private User user;
+    @SerializedName("geo")
+    @Expose
     private Object geo;
+    @SerializedName("coordinates")
+    @Expose
     private Object coordinates;
+    @SerializedName("place")
+    @Expose
     private Object place;
+    @SerializedName("contributors")
+    @Expose
     private Object contributors;
-    private Boolean isQuoteStatus;
+    @SerializedName("retweet_count")
+    @Expose
     private Integer retweetCount;
+    @SerializedName("favorite_count")
+    @Expose
     private Integer favoriteCount;
+    @SerializedName("entities")
+    @Expose
     private Entities_ entities;
+    @SerializedName("favorited")
+    @Expose
     private Boolean favorited;
+    @SerializedName("retweeted")
+    @Expose
     private Boolean retweeted;
+    @SerializedName("possibly_sensitive")
+    @Expose
+    private Boolean possiblySensitive;
+    @SerializedName("lang")
+    @Expose
     private String lang;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -232,24 +274,6 @@ public class UpdateTweet {
     /**
      * 
      * @return
-     *     The user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * 
-     * @param user
-     *     The user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    /**
-     * 
-     * @return
      *     The geo
      */
     public Object getGeo() {
@@ -317,24 +341,6 @@ public class UpdateTweet {
      */
     public void setContributors(Object contributors) {
         this.contributors = contributors;
-    }
-
-    /**
-     * 
-     * @return
-     *     The isQuoteStatus
-     */
-    public Boolean getIsQuoteStatus() {
-        return isQuoteStatus;
-    }
-
-    /**
-     * 
-     * @param isQuoteStatus
-     *     The is_quote_status
-     */
-    public void setIsQuoteStatus(Boolean isQuoteStatus) {
-        this.isQuoteStatus = isQuoteStatus;
     }
 
     /**
@@ -430,6 +436,24 @@ public class UpdateTweet {
     /**
      * 
      * @return
+     *     The possiblySensitive
+     */
+    public Boolean getPossiblySensitive() {
+        return possiblySensitive;
+    }
+
+    /**
+     * 
+     * @param possiblySensitive
+     *     The possibly_sensitive
+     */
+    public void setPossiblySensitive(Boolean possiblySensitive) {
+        this.possiblySensitive = possiblySensitive;
+    }
+
+    /**
+     * 
+     * @return
      *     The lang
      */
     public String getLang() {
@@ -443,14 +467,6 @@ public class UpdateTweet {
      */
     public void setLang(String lang) {
         this.lang = lang;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

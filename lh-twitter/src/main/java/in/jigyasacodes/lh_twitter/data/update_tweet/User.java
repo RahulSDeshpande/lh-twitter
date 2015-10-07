@@ -1,5 +1,5 @@
 
-package in.jigyasacodes.lh_twitter.data.updatetweet;
+package in.jigyasacodes.lh_twitter.data.update_tweet;
 
 import java.util.HashMap;
 import java.util.Map;

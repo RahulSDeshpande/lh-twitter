@@ -1,10 +1,10 @@
 
-package in.jigyasacodes.lh_twitter.data.home_timeline;
+package in.jigyasacodes.lh_twitter.data.verify_creds;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Metum {
+public class Status {
 
     @SerializedName("created_at")
     @Expose
@@ -39,9 +39,6 @@ public class Metum {
     @SerializedName("in_reply_to_screen_name")
     @Expose
     private Object inReplyToScreenName;
-    @SerializedName("user")
-    @Expose
-    private User user;
     @SerializedName("geo")
     @Expose
     private Object geo;
@@ -54,9 +51,9 @@ public class Metum {
     @SerializedName("contributors")
     @Expose
     private Object contributors;
-    @SerializedName("is_quote_status")
+    @SerializedName("retweeted_status")
     @Expose
-    private Boolean isQuoteStatus;
+    private RetweetedStatus retweetedStatus;
     @SerializedName("retweet_count")
     @Expose
     private Integer retweetCount;
@@ -65,10 +62,7 @@ public class Metum {
     private Integer favoriteCount;
     @SerializedName("entities")
     @Expose
-    private Entities_ entities;
-    @SerializedName("extended_entities")
-    @Expose
-    private ExtendedEntities extendedEntities;
+    private Entities__ entities;
     @SerializedName("favorited")
     @Expose
     private Boolean favorited;
@@ -78,9 +72,6 @@ public class Metum {
     @SerializedName("possibly_sensitive")
     @Expose
     private Boolean possiblySensitive;
-    @SerializedName("possibly_sensitive_appealable")
-    @Expose
-    private Boolean possiblySensitiveAppealable;
     @SerializedName("lang")
     @Expose
     private String lang;
@@ -286,24 +277,6 @@ public class Metum {
     /**
      * 
      * @return
-     *     The user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * 
-     * @param user
-     *     The user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    /**
-     * 
-     * @return
      *     The geo
      */
     public Object getGeo() {
@@ -376,19 +349,19 @@ public class Metum {
     /**
      * 
      * @return
-     *     The isQuoteStatus
+     *     The retweetedStatus
      */
-    public Boolean getIsQuoteStatus() {
-        return isQuoteStatus;
+    public RetweetedStatus getRetweetedStatus() {
+        return retweetedStatus;
     }
 
     /**
      * 
-     * @param isQuoteStatus
-     *     The is_quote_status
+     * @param retweetedStatus
+     *     The retweeted_status
      */
-    public void setIsQuoteStatus(Boolean isQuoteStatus) {
-        this.isQuoteStatus = isQuoteStatus;
+    public void setRetweetedStatus(RetweetedStatus retweetedStatus) {
+        this.retweetedStatus = retweetedStatus;
     }
 
     /**
@@ -432,7 +405,7 @@ public class Metum {
      * @return
      *     The entities
      */
-    public Entities_ getEntities() {
+    public Entities__ getEntities() {
         return entities;
     }
 
@@ -441,26 +414,8 @@ public class Metum {
      * @param entities
      *     The entities
      */
-    public void setEntities(Entities_ entities) {
+    public void setEntities(Entities__ entities) {
         this.entities = entities;
-    }
-
-    /**
-     * 
-     * @return
-     *     The extendedEntities
-     */
-    public ExtendedEntities getExtendedEntities() {
-        return extendedEntities;
-    }
-
-    /**
-     * 
-     * @param extendedEntities
-     *     The extended_entities
-     */
-    public void setExtendedEntities(ExtendedEntities extendedEntities) {
-        this.extendedEntities = extendedEntities;
     }
 
     /**
@@ -515,24 +470,6 @@ public class Metum {
      */
     public void setPossiblySensitive(Boolean possiblySensitive) {
         this.possiblySensitive = possiblySensitive;
-    }
-
-    /**
-     * 
-     * @return
-     *     The possiblySensitiveAppealable
-     */
-    public Boolean getPossiblySensitiveAppealable() {
-        return possiblySensitiveAppealable;
-    }
-
-    /**
-     * 
-     * @param possiblySensitiveAppealable
-     *     The possibly_sensitive_appealable
-     */
-    public void setPossiblySensitiveAppealable(Boolean possiblySensitiveAppealable) {
-        this.possiblySensitiveAppealable = possiblySensitiveAppealable;
     }
 
     /**
