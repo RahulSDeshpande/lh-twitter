@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import in.jigyasacodes.lh_twitter.R;
 
 
-public class TimelineFrag extends Fragment {
+public class UpdateTweetFrag extends Fragment {
 
 
-    public TimelineFrag() {
+    public UpdateTweetFrag() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,8 @@ public class TimelineFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag_messages, container, false);
+        return inflater.inflate(R.layout.frag_friends, container, false);
     }
 }

@@ -13,7 +13,7 @@ import in.jigyasacodes.lh_twitter.data.CONSTS;
 
 public class TwitterLoginAct extends AppCompatActivity {
 
-	private static String TAG = MainActivity.class.getSimpleName();
+	private static String TAG = TwitterLoginAct.class.getSimpleName();
 
 	private ImageView ivTwitterLogo;
 	private EditText etUsername, etPassword;

@@ -13,7 +13,6 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.data.Auth;
-import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 
 public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTimeline> {
@@ -27,21 +26,21 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 	private ProgressDialog mProgressDialog = null;
 	private Context ctx = null;
 
-	private OnHomeTimelineTaskCompleteListener onHomeTimelineTaskCompleteListener;
+	private OnHomeTimelineTaskCompleteListener1 onHomeTimelineTaskCompleteListener1;
 	//	private int intPaginationValue = 1;
 
 	public HomeTimelineFetcherTask1(
-			OnHomeTimelineTaskCompleteListener thiss, Context ctx) {
+			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx) {
 
-		onHomeTimelineTaskCompleteListener = thiss;
+		onHomeTimelineTaskCompleteListener1 = thiss;
 		this.ctx = ctx;
 	}
 
 	public HomeTimelineFetcherTask1(
-			OnHomeTimelineTaskCompleteListener thiss, Context ctx,
+			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx,
 			final int INT_PAGINATION_VALUE) {
 
-		onHomeTimelineTaskCompleteListener = thiss;
+		onHomeTimelineTaskCompleteListener1 = thiss;
 		this.ctx = ctx;
 		//	this.intPaginationValue = INT_PAGINATION_VALUE;
 	}
@@ -79,7 +78,7 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 		//	Token requestToken = Auth.getRequestToken();
 		Token accessToken = Auth.getAccessToken();
 		OAuthRequest oAuthRequest =
-				new OAuthRequest(Verb.GET, CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
+				new OAuthRequest(Verb.GET, URLS[0]);
 
 		oAuthService.signRequest(accessToken, oAuthRequest);
 
@@ -105,20 +104,20 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 		if (!META.equals(null)) {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
-			onHomeTimelineTaskCompleteListener
-					.OnHomeTimelineTaskComplete(true, META);
+			onHomeTimelineTaskCompleteListener1
+					.OnHomeTimelineTaskComplete1(true, META);
 
 		} else {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - else () ->  1");
-			onHomeTimelineTaskCompleteListener
-					.OnHomeTimelineTaskComplete(false, null);
+			onHomeTimelineTaskCompleteListener1
+					.OnHomeTimelineTaskComplete1(false, null);
 		}
 	}
 
-	public interface OnHomeTimelineTaskCompleteListener {
+	public interface OnHomeTimelineTaskCompleteListener1 {
 
-		void OnHomeTimelineTaskComplete(
+		void OnHomeTimelineTaskComplete1(
 
 				final boolean isTResponseSuccessful, final MetaHomeTimeline META);
 	}
