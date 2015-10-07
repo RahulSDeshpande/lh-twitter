@@ -3,12 +3,14 @@ package in.jigyasacodes.lh_twitter.data;
 import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;
 
+import java.io.Serializable;
+
 import in.jigyasacodes.lh_twitter.data.verify_creds.MetaCreds;
 
 /**
  * Created by rahulsdeshpande on 3/10/15.
  */
-public class Auth {
+public class Auth implements Serializable {
 
 	private static Token mRequestToken;
 	private static Token mAccessToken;

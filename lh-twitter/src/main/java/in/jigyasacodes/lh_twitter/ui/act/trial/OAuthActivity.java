@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
@@ -27,6 +28,7 @@ import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.verify_creds.MetaCreds;
 import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
 
 //	↗
@@ -42,6 +44,7 @@ public class OAuthActivity extends AppCompatActivity {
 	private OAuthService mOauthService;
 	private Token mRequestToken, mAccessToken;
 	private Response response;
+	private String respBody;
 	private WebViewClient mWebViewClient = new WebViewClient() {
 
 		@Override
@@ -204,7 +207,14 @@ public class OAuthActivity extends AppCompatActivity {
 		Auth.setRequestToken(mRequestToken);
 		Auth.setAccessToken(mAccessToken);
 		Auth.setOAuthService(mOauthService);
-		Auth.setMetaCreds(new Gson().fromJson());
+		try {
+
+			Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
+
+		} catch (JsonSyntaxException jse) {
+
+			Log.e(getClass().getSimpleName() + " -> saveTokens()", jse.getMessage());
+		}
 
 		completeLoginProcess(TwitterMainAct.class);
 	}
@@ -264,6 +274,8 @@ public class OAuthActivity extends AppCompatActivity {
 
 			@Override
 			protected void onPostExecute(final String RESP_BODY) {
+
+				respBody = RESP_BODY;
 
 				Log.e("----------------------", "4==============================================");
 				Log.e("-----RESPONSE-----", RESP_BODY);

@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import in.jigyasacodes.lh_twitter.R;
-import in.jigyasacodes.lh_twitter.data.Consts;
-
+import in.jigyasacodes.lh_twitter.data.CONSTS;
 
 public class TwitterLoginAct extends AppCompatActivity {
 
@@ -53,12 +52,12 @@ public class TwitterLoginAct extends AppCompatActivity {
 
 					} else {
 
-						etPassword.setError(Consts.LOGIN_ERROR_Password);
+						etPassword.setError(CONSTS.LOGIN_ERROR_Password);
 					}
 
 				} else {
 
-					etUsername.setError(Consts.LOGIN_ERROR_USERNAME);
+					etUsername.setError(CONSTS.LOGIN_ERROR_USERNAME);
 				}
 			}
 

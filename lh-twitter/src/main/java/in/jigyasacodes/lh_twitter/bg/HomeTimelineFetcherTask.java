@@ -5,11 +5,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONObject;
+import com.google.gson.Gson;
+
+import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
+import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
+import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 
 public class HomeTimelineFetcherTask extends AsyncTask<String, Void, MetaHomeTimeline> {
@@ -72,20 +77,27 @@ public class HomeTimelineFetcherTask extends AsyncTask<String, Void, MetaHomeTim
 		 * has not called Looper.prepare()
 		 *
 		 **/
-		// onProgressUpdate();
 
-		final JSONObject JSON_OBJ_MAIN = fetchJSON(URLS[0]);
+		OAuthService oAuthService = Auth.getOAuthService();
+		//	Token requestToken = Auth.getRequestToken();
+		Token accessToken = Auth.getAccessToken();
+		OAuthRequest oAuthRequest =
+				new OAuthRequest(Verb.GET, CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
 
-		if (!JSON_OBJ_MAIN.equals(null)) {
+		oAuthService.signRequest(accessToken,oAuthRequest);
 
-			Log.e("doInBackground() - if()",
-					"RAW RESPONSE data Successfully Parsed to JSON ------------\n"
-							+ JSON_OBJ_MAIN.toString() + "\n------------");
+		try {
 
-			return --;
+			return new Gson()
+					.fromJson(oAuthRequest
+							.send()
+							.getBody()
+							, MetaHomeTimeline.class);
+
+		}catch(Exception e) {
+
+			return null;
 		}
-
-		return null;
 	}
 
 	@Override
