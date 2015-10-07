@@ -1,5 +1,7 @@
 package in.jigyasacodes.lh_twitter.ui.frag;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,13 +15,20 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.adap.NavDrawerAdapter;
+import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
+import in.jigyasacodes.lh_twitter.data.verify_creds.MetaCreds;
 
 
 /**
@@ -29,6 +38,7 @@ public class NavDrawerFrag extends Fragment {
 
 	private static String[] strArrTitles = null;
 	private static int[] intArrTitlePics = null;
+	private Context mCtx;
 	private RecyclerView recyclerView;
 	private ActionBarDrawerToggle abdToggle;
 	private DrawerLayout drawerLayout;
@@ -36,6 +46,12 @@ public class NavDrawerFrag extends Fragment {
 	private FragmentDrawerListener fragDrawerListener;
 
 	private View containerView;
+
+	private MetaCreds META_CREDS;
+
+	private ImageView ivProfilePic;
+
+	private Auth1 mAuth1;
 
 	public NavDrawerFrag() {
 
@@ -62,6 +78,8 @@ public class NavDrawerFrag extends Fragment {
 
 		super.onCreate(savedInstanceState);
 
+		META_CREDS = Auth.getMetaCreds();
+
 		strArrTitles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
 		intArrTitlePics = getActivity().getResources().getIntArray(R.array.nav_drawer_label_pics);
 	}
@@ -72,6 +90,16 @@ public class NavDrawerFrag extends Fragment {
 		//return super.onCreateView(inflater, container, savedInstanceState);
 
 		View layout = inflater.inflate(R.layout.frag_nav_drawer, container, false);
+
+		ivProfilePic = (ImageView) layout.findViewById(R.id.ivProfilePic);
+
+		Toast.makeText(mCtx,"Profile Image URL: "+mAuth1.getMetaCreds().getProfileImageUrl(),Toast.LENGTH_LONG).show();
+
+		Picasso.with(mCtx).load(mAuth1.getMetaCreds().getProfileImageUrl())
+				.error(R.drawable.dp)
+				.placeholder(R.drawable.dp)
+				.into(ivProfilePic);
+
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
 		navDrawerAdap = new NavDrawerAdapter(getActivity(), getData());
@@ -92,6 +120,16 @@ public class NavDrawerFrag extends Fragment {
 		}));
 
 		return layout;
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+
+		super.onAttach(activity);
+
+		this.mCtx = activity.getApplicationContext();
+
+		mAuth1 = (Auth1) activity.getIntent().getSerializableExtra("AUTH1_SERIALIZABLE");
 	}
 
 	public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
@@ -131,16 +169,16 @@ public class NavDrawerFrag extends Fragment {
 		this.fragDrawerListener = fragDrawerListener;
 	}
 
-	public static interface ClickListener {
+	public interface ClickListener {
 
-		public void onClick(View view, int position);
+		void onClick(View view, int position);
 
-		public void onLongClick(View view, int position);
+		void onLongClick(View view, int position);
 	}
 
 	public interface FragmentDrawerListener {
 
-		public void onDrawerItemSelected(View view, int position);
+		void onDrawerItemSelected(View view, int position);
 	}
 
 	class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {

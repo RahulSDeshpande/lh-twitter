@@ -16,26 +16,21 @@ import org.scribe.model.Token;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
-import in.jigyasacodes.lh_twitter.bg.HomeTimelineFetcherTask1;
-import in.jigyasacodes.lh_twitter.data.CONSTS;
-import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.ui.frag.HomeTimelineFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.NavDrawerFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.UpdateTweetFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.UserAccountFrag;
 
 
-public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener, HomeTimelineFetcherTask1.OnHomeTimelineTaskCompleteListener1 {
+public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener{
 
-	//	private static final String TWITTER_VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
 	private static String TAG = TwitterMainAct.class.getSimpleName();
 
 	private Toolbar mToolbar;
 	private NavDrawerFrag drawerFragment;
 
-	//	private OAuthService oAuthService;
-	//	private Token accessToken;
-	//	private Response response;
+	private Auth1 mAuth1;
 
 	public TwitterMainAct() {
 	}
@@ -82,12 +77,6 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 						, Toast.LENGTH_LONG).show();
 		*/
 
-		this.fetchHomeTimeline(CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
-	}
-
-	private void fetchHomeTimeline(final String TWITTER_URL) {
-
-		new HomeTimelineFetcherTask1(this,this.getApplicationContext());
 	}
 
 	@Override
@@ -128,7 +117,7 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 		switch (position) {
 			case 0:
 				fragment = new HomeTimelineFrag();
-				title = getString(R.string.title_home);
+				title = getString(R.string.title_home_timeline);
 				break;
 			case 1:
 				fragment = new UpdateTweetFrag();
@@ -136,13 +125,14 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 				break;
 			case 2:
 				fragment = new UserAccountFrag();
-				title = getString(R.string.title_messages);
+				title = getString(R.string.title_account);
 				break;
 			default:
 				break;
 		}
 
 		if (fragment != null) {
+
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			fragmentTransaction.replace(R.id.container_body, fragment);
@@ -150,27 +140,6 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 
 			// set the toolbar title
 			getSupportActionBar().setTitle(title);
-		}
-	}
-
-	private void floodHomeTimelineRV(final MetaHomeTimeline META)
-	{
-
-	}
-
-	@Override
-	public void OnHomeTimelineTaskComplete1(boolean isTResponseSuccessful, MetaHomeTimeline META) {
-
-		if(isTResponseSuccessful && META.equals(null))
-		{
-
-			floodHomeTimelineRV(META);
-
-		}else
-		{
-			Toast.makeText(this,
-					"Oops..\n\nCould not fetch Tweets from your Twitter account..\n\nPlease try again..",
-					Toast.LENGTH_LONG).show();
 		}
 	}
 

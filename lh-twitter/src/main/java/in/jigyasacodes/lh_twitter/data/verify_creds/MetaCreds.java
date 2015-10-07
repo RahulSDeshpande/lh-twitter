@@ -4,7 +4,9 @@ package in.jigyasacodes.lh_twitter.data.verify_creds;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MetaCreds {
+import java.io.Serializable;
+
+public class MetaCreds implements Serializable{
 
     @SerializedName("id")
     @Expose

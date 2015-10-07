@@ -27,7 +27,7 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
-import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.verify_creds.MetaCreds;
 import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
 
@@ -206,28 +206,39 @@ public class OAuthActivity extends AppCompatActivity {
 
 		//  this.oauthRequest();
 
-		Auth.setRequestToken(mRequestToken);
-		Auth.setAccessToken(mAccessToken);
-		Auth.setOAuthService(mOauthService);
+		//	Auth.setRequestToken(mRequestToken);
+		//	Auth.setAccessToken(mAccessToken);
+		//	Auth.setOAuthService(mOauthService);
+
+		Auth1 auth1 = new Auth1();
+		auth1.setRequestToken(mRequestToken);
+		auth1.setAccessToken(mAccessToken);
+		//	auth1.setOAuthService(mOauthService);
 
 		try {
 
-			Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
+			//	Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
+			auth1.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
+			Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() SUCCESSFULL !!");
 
 		} catch (JsonSyntaxException jse) {
 
-			Log.e(getClass().getSimpleName() + " -> saveTokens()", jse.getMessage());
+			Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() SUCCESSFULL !!\n" + jse.getMessage());
 		}
 
-		completeLoginProcess(TwitterMainAct.class);
+		completeLoginProcess(TwitterMainAct.class, auth1);
 	}
 
-	private void completeLoginProcess(Class destinationClass) {
+	private void completeLoginProcess(Class destinationClass, Auth1 serializableAuth1) {
 
-		//  Intent i = new Intent();
+		Intent i = new Intent(this, destinationClass);
 
-		//  new TwitterMainAct(mOauthService,mAccessToken);
-		startActivity(new Intent(OAuthActivity.this, destinationClass));
+		Bundle b = new Bundle();
+		b.putSerializable("AUTH1_SERIALIZABLE", serializableAuth1);
+
+		i.putExtras(b);
+
+		startActivity(i);
 	}
 
 	private void oauthRequest() {
