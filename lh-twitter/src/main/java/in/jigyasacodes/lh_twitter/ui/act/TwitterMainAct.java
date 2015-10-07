@@ -22,6 +22,7 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
+import in.jigyasacodes.lh_twitter.data.Auth;
 import in.jigyasacodes.lh_twitter.ui.frag.HomeFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.NavDrawerFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.TimelineFrag;
@@ -30,26 +31,23 @@ import in.jigyasacodes.lh_twitter.ui.frag.TweetFrag;
 
 public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener {
 
-	private static String TAG = MainActivity.class.getSimpleName();
-
 	private static final String TWITTER_VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
-
+	private static String TAG = MainActivity.class.getSimpleName();
 	private ProgressDialog mProgressDialog = null;
 
 	private Toolbar mToolbar;
 	private NavDrawerFrag drawerFragment;
 
 	private OAuthService oAuthService;
-	private Token token;
+	private Token accessToken;
+	private Response response;
 
-	public TwitterMainAct()
-	{
+	public TwitterMainAct() {
 	}
 
-	public TwitterMainAct(OAuthService oauthService, Token token)
-	{
+	public TwitterMainAct(OAuthService oauthService, Token accessToken) {
 		this.oAuthService = oauthService;
-		this.token = token;
+		this.accessToken = accessToken;
 	}
 
 	@Override
@@ -72,6 +70,7 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 		// display the first navigation drawer view on app launch
 		displayView(0);
 
+		/*
 		String API_KEY = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-api-key", "N/A");
 		String API_SECRET = getSharedPreferences("lh-twitter-tokens", 0).getString("lh-twitter-tokens-api-secret", "N/A");
 
@@ -87,13 +86,12 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 						+ "\n\n" + REQUEST_KEY + "\n" + REQUEST_TOKEN
 						+ "\n\n" + ACCESS_KEY + "\n" + ACCESS_SECRET
 						, Toast.LENGTH_LONG).show();
+		*/
 
 		//  this.oauthRequest();
 	}
 
-	private Response response;
-	private void oauthRequest()
-	{
+	private void oauthRequest() {
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setIndeterminate(true);
 		mProgressDialog.setCanceledOnTouchOutside(false);
@@ -118,7 +116,8 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 
 				Log.e("----------------------", "2==============================================");
 
-				oAuthService.signRequest(token, request);
+				accessToken = Auth.getAccessToken();
+				oAuthService.signRequest(accessToken, request);
 
 				Log.e("----------------------", "3==============================================");
 
@@ -136,15 +135,17 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 
 				mProgressDialog.dismiss();
 
+				/*
 				runOnUiThread(new Runnable() {
 					public void run() {
 
 						Toast.makeText(TwitterMainAct.this,
-								"RESPONSE_BODY:\n\n"+response.getBody(),
+								"RESPONSE_BODY:\n\n" + response.getBody(),
 								Toast.LENGTH_SHORT)
 								.show();
 					}
 				});
+				*/
 			}
 		}).execute();
 	}

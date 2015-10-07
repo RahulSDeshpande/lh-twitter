@@ -38,6 +38,7 @@ public class OAuthActivity extends AppCompatActivity {
 	private static final String TWITTER_API_URL = "https://api.twitter.com/";
 	private static final String TWITTER_VERIFY_CREDENTIALS_URL
 			= "https://api.twitter.com/1.1/account/verify_credentials.json";
+
 	private ProgressDialog mProgressDialog = null;
 	private String mStrAccessToken = "";
 	private WebView mWebView;
@@ -45,6 +46,7 @@ public class OAuthActivity extends AppCompatActivity {
 	private Token mRequestToken, mAccessToken;
 	private Response response;
 	private String respBody;
+
 	private WebViewClient mWebViewClient = new WebViewClient() {
 
 		@Override
@@ -207,6 +209,7 @@ public class OAuthActivity extends AppCompatActivity {
 		Auth.setRequestToken(mRequestToken);
 		Auth.setAccessToken(mAccessToken);
 		Auth.setOAuthService(mOauthService);
+
 		try {
 
 			Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));

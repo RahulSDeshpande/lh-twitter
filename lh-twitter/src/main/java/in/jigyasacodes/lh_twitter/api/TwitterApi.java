@@ -1,6 +1,6 @@
 package in.jigyasacodes.lh_twitter.api;
 
-import in.jigyasacodes.lh_twitter.data.usertimeline.UserTimeLine;
+import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -11,20 +11,20 @@ import retrofit.http.Query;
 public interface TwitterApi {
 
 	@GET("/statuses/user_timeline.json")
-	UserTimeLine getAllUserTimeline(@Query("count") int count);
+	MetaHomeTimeline getAllUserTimeline(@Query("count") int count);
 
 	@GET("/statuses/user_timeline.json")
-	UserTimeLine getUserTimeline(@Query("count") int count);
+	MetaHomeTimeline getUserTimeline(@Query("count") int count);
 
 	@GET("/statuses/user_timeline.json")
-	UserTimeLine getUserTimeline(@Query("count") int count, @Query("since_id") int sinceId);
+	MetaHomeTimeline getUserTimeline(@Query("count") int count, @Query("since_id") int sinceId);
 
 	@GET("/statuses/update.json")
-	UserTimeLine updateStatusTweet(@Query("status") String status);
+	MetaHomeTimeline updateStatusTweet(@Query("status") String status);
 
 	@GET("/statuses/update.json")
-	UserTimeLine updateStatusTweet(@Query("status") String status, @Query("in_reply_to_status_id") String inReplyToStatusId);
+	MetaHomeTimeline updateStatusTweet(@Query("status") String status, @Query("in_reply_to_status_id") String inReplyToStatusId);
 
 	@GET("/statuses/retweet/{id}.json")
-	UserTimeLine retweetATweet(@Path("id") String id, @Query("trim_user") String trimUser);
+	MetaHomeTimeline retweetATweet(@Path("id") String id, @Query("trim_user") String trimUser);
 }
