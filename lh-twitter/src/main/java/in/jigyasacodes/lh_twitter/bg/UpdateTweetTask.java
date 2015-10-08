@@ -12,8 +12,8 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
-import in.jigyasacodes.lh_twitter.data.Auth;
 import in.jigyasacodes.lh_twitter.data.Auth1;
+import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
 
 public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
@@ -33,7 +33,7 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
 		onUpdateTweetTaskCompleteListener = thiss;
 		this.ctx = ctx;
-		this.mAuth1=auth1;
+		this.mAuth1 = auth1;
 	}
 
 	public UpdateTweetTask(
@@ -73,15 +73,17 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 		 *
 		 **/
 
-		OAuthService oAuthService = Auth.getOAuthService();
+		OAuthService oAuthService = CONSTS.getOAuthService(ctx);
 		//	Token requestToken = Auth.getRequestToken();
-		Token accessToken = Auth.getAccessToken();
+		Token accessToken = mAuth1.getAccessToken();
 		OAuthRequest oAuthRequest =
 				new OAuthRequest(Verb.POST, URL_AND_TWEET[0] + "?status=" + URL_AND_TWEET[1]);
 
 		oAuthService.signRequest(accessToken, oAuthRequest);
 
 		try {
+
+			Log.e("doInBackground()", "UPDATE TWEET - SUCCESSFUL");
 
 			return new Gson()
 					.fromJson(oAuthRequest
@@ -91,6 +93,7 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
 		} catch (Exception e) {
 
+			Log.e("doInBackground()", "UPDATE TWEET - UN-SUCCESSFUL\n"+e.getMessage());
 			return null;
 		}
 	}
@@ -116,8 +119,6 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
 	public interface OnUpdateTweetTaskCompleteListener {
 
-		void onUpdateTweetTaskComplete(
-
-			final boolean isTResponseSuccessful, final MetaUpdateTweet META);
+		void onUpdateTweetTaskComplete(final boolean isTResponseSuccessful, final MetaUpdateTweet META);
 	}
 }
