@@ -13,34 +13,30 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.data.Auth;
-import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
+import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
 
-public class UpdateTweetTask extends AsyncTask<String, Void, MetaHomeTimeline> {
+public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
-	private static final String TWITTER_VERIFY_CREDENTIALS_URL
-			= "https://api.twitter.com/1.1/account/verify_credentials.json";
-	private final String PB_MSG_FETCHING_TWEETS = "Fetching your Home Timeline Tweets for you from the Twitter..";
-	//	private OAuthService mOauthService;
-	//	private Token mRequestToken, mAccessToken;
-	//	private Response response;
+	private final String PB_MSG_UPDATING_TWEET = "Updating your Tweet on your Twitter Account..";
+
 	private ProgressDialog mProgressDialog = null;
 	private Context ctx = null;
 
-	private OnHomeTimelineTaskCompleteListener1 onHomeTimelineTaskCompleteListener1;
+	private OnUpdateTweetTaskCompleteListener onUpdateTweetTaskCompleteListener;
 	//	private int intPaginationValue = 1;
 
 	public UpdateTweetTask(
-			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx) {
+			OnUpdateTweetTaskCompleteListener thiss, Context ctx) {
 
-		onHomeTimelineTaskCompleteListener1 = thiss;
+		onUpdateTweetTaskCompleteListener = thiss;
 		this.ctx = ctx;
 	}
 
 	public UpdateTweetTask(
-			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx,
+			OnUpdateTweetTaskCompleteListener thiss, Context ctx,
 			final int INT_PAGINATION_VALUE) {
 
-		onHomeTimelineTaskCompleteListener1 = thiss;
+		onUpdateTweetTaskCompleteListener = thiss;
 		this.ctx = ctx;
 		//	this.intPaginationValue = INT_PAGINATION_VALUE;
 	}
@@ -54,12 +50,12 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaHomeTimeline> {
 		mProgressDialog.setCanceledOnTouchOutside(false);
 		mProgressDialog.setCancelable(false);
 		mProgressDialog.show();
-		mProgressDialog.setMessage(PB_MSG_FETCHING_TWEETS);
+		mProgressDialog.setMessage(PB_MSG_UPDATING_TWEET);
 		mProgressDialog.show();
 	}
 
 	@Override
-	protected MetaHomeTimeline doInBackground(final String... URLS) {
+	protected MetaUpdateTweet doInBackground(final String... URL_AND_TWEET) {
 
 		// //Looper.prepare();
 
@@ -78,7 +74,7 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaHomeTimeline> {
 		//	Token requestToken = Auth.getRequestToken();
 		Token accessToken = Auth.getAccessToken();
 		OAuthRequest oAuthRequest =
-				new OAuthRequest(Verb.GET, URLS[0]);
+				new OAuthRequest(Verb.POST, URL_AND_TWEET[0] + "?status=" + URL_AND_TWEET[1]);
 
 		oAuthService.signRequest(accessToken, oAuthRequest);
 
@@ -88,37 +84,37 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaHomeTimeline> {
 					.fromJson(oAuthRequest
 							.send()
 							.getBody()
-							, MetaHomeTimeline.class);
+							, MetaUpdateTweet.class);
 
-		}catch(Exception e) {
+		} catch (Exception e) {
 
 			return null;
 		}
 	}
 
 	@Override
-	protected void onPostExecute(final MetaHomeTimeline META) {
+	protected void onPostExecute(final MetaUpdateTweet META) {
 
 		mProgressDialog.dismiss();
 
 		if (!META.equals(null)) {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
-			onHomeTimelineTaskCompleteListener1
-					.OnHomeTimelineTaskComplete1(true, META);
+			onUpdateTweetTaskCompleteListener
+					.onUpdateTweetTaskComplete(true, META);
 
 		} else {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - else () ->  1");
-			onHomeTimelineTaskCompleteListener1
-					.OnHomeTimelineTaskComplete1(false, null);
+			onUpdateTweetTaskCompleteListener
+					.onUpdateTweetTaskComplete(false, null);
 		}
 	}
 
-	public interface OnHomeTimelineTaskCompleteListener1 {
+	public interface OnUpdateTweetTaskCompleteListener {
 
-		void OnHomeTimelineTaskComplete1(
+		void onUpdateTweetTaskComplete(
 
-				final boolean isTResponseSuccessful, final MetaHomeTimeline META);
+			final boolean isTResponseSuccessful, final MetaUpdateTweet META);
 	}
 }

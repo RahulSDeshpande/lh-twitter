@@ -109,19 +109,19 @@ public class HomeTimelineFetcherTask extends AsyncTask<String, Void, MetaHomeTim
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
 			onHomeTimelineTaskCompleteListener
-					.OnHomeTimelineTaskComplete(true, META);
+					.onHomeTimelineTaskComplete(true, META);
 
 		} else {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - else () ->  1");
 			onHomeTimelineTaskCompleteListener
-					.OnHomeTimelineTaskComplete(false, null);
+					.onHomeTimelineTaskComplete(false, null);
 		}
 	}
 
 	public interface OnHomeTimelineTaskCompleteListener {
 
-		void OnHomeTimelineTaskComplete(
+		void onHomeTimelineTaskComplete(
 
 			final boolean isTResponseSuccessful, final MetaHomeTimeline META);
 	}

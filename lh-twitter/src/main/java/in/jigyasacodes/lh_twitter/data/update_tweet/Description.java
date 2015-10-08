@@ -1,15 +1,17 @@
 
 package in.jigyasacodes.lh_twitter.data.update_tweet;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Description {
 
+    @SerializedName("urls")
+    @Expose
     private List<Object> urls = new ArrayList<Object>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -27,14 +29,6 @@ public class Description {
      */
     public void setUrls(List<Object> urls) {
         this.urls = urls;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

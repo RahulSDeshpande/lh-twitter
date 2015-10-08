@@ -107,6 +107,21 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 		return navDrawerFrag;
 	}
 
+	private UpdateTweetFrag bundleArgsInUpdateTweetFrag() {
+
+		UpdateTweetFrag updateTweetFrag = new UpdateTweetFrag();
+		//	navDrawerFrag = navDrawerFragTemp;
+
+		Bundle bundleArgs = new Bundle();
+		bundleArgs
+				.putSerializable("AUTH1_SERIALIZABLE",
+						this.getIntent().getExtras().getSerializable("AUTH1_SERIALIZABLE"));
+
+		updateTweetFrag.setArguments(bundleArgs);
+
+		return updateTweetFrag;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -148,7 +163,7 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 				title = getString(R.string.title_home_timeline);
 				break;
 			case 1:
-				fragment = new UpdateTweetFrag();
+				fragment = bundleArgsInUpdateTweetFrag();
 				title = getString(R.string.title_tweet);
 				break;
 			case 2:

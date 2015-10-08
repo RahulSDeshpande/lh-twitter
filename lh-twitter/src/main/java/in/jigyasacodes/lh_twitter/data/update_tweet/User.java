@@ -1,52 +1,131 @@
 
 package in.jigyasacodes.lh_twitter.data.update_tweet;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("id_str")
+    @Expose
     private String idStr;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("screen_name")
+    @Expose
     private String screenName;
+    @SerializedName("location")
+    @Expose
     private String location;
+    @SerializedName("description")
+    @Expose
     private String description;
+    @SerializedName("url")
+    @Expose
     private Object url;
+    @SerializedName("entities")
+    @Expose
     private Entities entities;
+    @SerializedName("protected")
+    @Expose
     private Boolean _protected;
+    @SerializedName("followers_count")
+    @Expose
     private Integer followersCount;
+    @SerializedName("friends_count")
+    @Expose
     private Integer friendsCount;
+    @SerializedName("listed_count")
+    @Expose
     private Integer listedCount;
+    @SerializedName("created_at")
+    @Expose
     private String createdAt;
+    @SerializedName("favourites_count")
+    @Expose
     private Integer favouritesCount;
+    @SerializedName("utc_offset")
+    @Expose
     private Integer utcOffset;
+    @SerializedName("time_zone")
+    @Expose
     private String timeZone;
+    @SerializedName("geo_enabled")
+    @Expose
     private Boolean geoEnabled;
+    @SerializedName("verified")
+    @Expose
     private Boolean verified;
+    @SerializedName("statuses_count")
+    @Expose
     private Integer statusesCount;
+    @SerializedName("lang")
+    @Expose
     private String lang;
+    @SerializedName("contributors_enabled")
+    @Expose
     private Boolean contributorsEnabled;
+    @SerializedName("is_translator")
+    @Expose
     private Boolean isTranslator;
+    @SerializedName("is_translation_enabled")
+    @Expose
     private Boolean isTranslationEnabled;
+    @SerializedName("profile_background_color")
+    @Expose
     private String profileBackgroundColor;
+    @SerializedName("profile_background_image_url")
+    @Expose
     private String profileBackgroundImageUrl;
+    @SerializedName("profile_background_image_url_https")
+    @Expose
     private String profileBackgroundImageUrlHttps;
+    @SerializedName("profile_background_tile")
+    @Expose
     private Boolean profileBackgroundTile;
+    @SerializedName("profile_image_url")
+    @Expose
     private String profileImageUrl;
+    @SerializedName("profile_image_url_https")
+    @Expose
     private String profileImageUrlHttps;
+    @SerializedName("profile_link_color")
+    @Expose
     private String profileLinkColor;
+    @SerializedName("profile_sidebar_border_color")
+    @Expose
     private String profileSidebarBorderColor;
+    @SerializedName("profile_sidebar_fill_color")
+    @Expose
     private String profileSidebarFillColor;
+    @SerializedName("profile_text_color")
+    @Expose
     private String profileTextColor;
+    @SerializedName("profile_use_background_image")
+    @Expose
     private Boolean profileUseBackgroundImage;
+    @SerializedName("has_extended_profile")
+    @Expose
     private Boolean hasExtendedProfile;
+    @SerializedName("default_profile")
+    @Expose
     private Boolean defaultProfile;
+    @SerializedName("default_profile_image")
+    @Expose
     private Boolean defaultProfileImage;
+    @SerializedName("following")
+    @Expose
     private Boolean following;
+    @SerializedName("follow_request_sent")
+    @Expose
     private Boolean followRequestSent;
+    @SerializedName("notifications")
+    @Expose
     private Boolean notifications;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -766,14 +845,6 @@ public class User {
      */
     public void setNotifications(Boolean notifications) {
         this.notifications = notifications;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

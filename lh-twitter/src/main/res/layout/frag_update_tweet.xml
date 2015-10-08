@@ -31,7 +31,7 @@
         tools:context=".MainActivity">
 
         <ImageButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/imgBtnTweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -42,6 +42,7 @@
             android:scaleType="centerInside"/>
 
         <TextView
+            android:id="@+id/tvTextWatcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
