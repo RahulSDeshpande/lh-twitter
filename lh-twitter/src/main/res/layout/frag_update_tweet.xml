@@ -3,6 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp"
     tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/etTweet"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="8dp"
+        android:gravity="top|left"
+        android:hint="What's happening?"
+        android:inputType="textCapSentences"
+        android:lines="4"
+        android:maxLength="140"
+        android:minLines="4"
+        android:padding="12dp"
+        android:scrollHorizontally="false"
+        android:textSize="24sp"
+        android:typeface="monospace"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        tools:context=".MainActivity">
+
+        <ImageButton
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/tweetbutton"
+            android:padding="16dp"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:alpha="0.6"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="140"
+            android:textSize="24sp"
+            android:typeface="monospace"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:alpha="0.4"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="16dp"
+        android:text="@string/text_disclaimer"/>
 
 </LinearLayout>

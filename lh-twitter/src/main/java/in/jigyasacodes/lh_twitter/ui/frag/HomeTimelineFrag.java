@@ -35,7 +35,7 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.frag_home, container, false);
+		View rootView = inflater.inflate(R.layout.frag_home_timeline, container, false);
 
 		this.fetchHomeTimeline(CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
 

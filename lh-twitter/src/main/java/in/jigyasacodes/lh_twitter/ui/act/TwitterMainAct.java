@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,14 +24,12 @@ import in.jigyasacodes.lh_twitter.ui.frag.UpdateTweetFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.UserAccountFrag;
 
 
-public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener{
+public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener {
 
 	private static String TAG = TwitterMainAct.class.getSimpleName();
-
+	private static Auth1 mAuth1;
 	private Toolbar mToolbar;
 	private NavDrawerFrag drawerFragment;
-
-	private Auth1 mAuth1;
 
 	public TwitterMainAct() {
 	}
@@ -52,8 +51,22 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+		//	FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		//	ft.replace(R.id.container_navigation_drawer, new NavDrawerFrag());
+		//	ft.commit();
+
+		/*
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.container_navigation_drawer, bundleArgsInNavDrawerFrag())
+				.commit();
+		*/
+
 		drawerFragment = (NavDrawerFrag)
 				getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+
+		Log.e("$$$$$$$$$$$$$$",drawerFragment.equals(null)+"");
+
 		drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 		drawerFragment.setFragDrawerListener(this);
 
@@ -77,6 +90,21 @@ public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.F
 						, Toast.LENGTH_LONG).show();
 		*/
 
+	}
+
+	private NavDrawerFrag bundleArgsInNavDrawerFrag() {
+
+		NavDrawerFrag navDrawerFrag = new NavDrawerFrag();
+		//	navDrawerFrag = navDrawerFragTemp;
+
+		Bundle bundleArgs = new Bundle();
+		bundleArgs
+				.putSerializable("AUTH1_SERIALIZABLE",
+						this.getIntent().getExtras().getSerializable("AUTH1_SERIALIZABLE"));
+
+		navDrawerFrag.setArguments(bundleArgs);
+
+		return navDrawerFrag;
 	}
 
 	@Override
