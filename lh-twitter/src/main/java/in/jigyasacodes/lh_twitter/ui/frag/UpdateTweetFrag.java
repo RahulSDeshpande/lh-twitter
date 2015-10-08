@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.bg.UpdateTweetTask;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
 
@@ -30,6 +31,8 @@ public class UpdateTweetFrag
 	private ImageButton imgBtnTweet;
 	private TextView tvTextWatcher;
 
+	private Auth1 mAuth1;
+
 	public UpdateTweetFrag() {
 		// Required empty public constructor
 	}
@@ -39,6 +42,7 @@ public class UpdateTweetFrag
 
 		super.onCreate(savedInstanceState);
 
+		mAuth1 = (Auth1) getArguments().getSerializable("AUTH1_SERIALIZABLE");
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class UpdateTweetFrag
 
 		super.onAttach(activity);
 
-		this.mCtx = activity.getApplicationContext();
+		this.mCtx = activity;
 
 		//	mAuth1 = (Auth1) activity.getIntent().getSerializableExtra("AUTH1_SERIALIZABLE");
 	}
@@ -81,7 +85,7 @@ public class UpdateTweetFrag
 			@Override
 			public void afterTextChanged(Editable editable) {
 
-				tvTextWatcher.setText(140 - editable.length());
+				tvTextWatcher.setText(String.valueOf(140 - editable.length()));
 			}
 		});
 
@@ -90,9 +94,15 @@ public class UpdateTweetFrag
 			@Override
 			public void onClick(View view) {
 
-				new UpdateTweetTask(UpdateTweetFrag.this, mCtx)
-						.execute(CONSTS.TWITTER_API.URL_BASE_UPDATE_TWEET
-								, etTweet.getText().toString());
+				if(etTweet.getText().length() > 0) {
+					new UpdateTweetTask(UpdateTweetFrag.this, mCtx,mAuth1)
+							.execute(CONSTS.TWITTER_API.URL_BASE_UPDATE_TWEET
+									, etTweet.getText().toString());
+				}
+				else
+				{
+					Toast.makeText(mCtx.getApplicationContext(), "Blank Tweet can't be posted..", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 

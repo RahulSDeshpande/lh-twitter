@@ -13,6 +13,7 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
 
 public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
@@ -22,14 +23,17 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 	private ProgressDialog mProgressDialog = null;
 	private Context ctx = null;
 
+	private Auth1 mAuth1;
+
 	private OnUpdateTweetTaskCompleteListener onUpdateTweetTaskCompleteListener;
 	//	private int intPaginationValue = 1;
 
 	public UpdateTweetTask(
-			OnUpdateTweetTaskCompleteListener thiss, Context ctx) {
+			OnUpdateTweetTaskCompleteListener thiss, Context ctx, Auth1 auth1) {
 
 		onUpdateTweetTaskCompleteListener = thiss;
 		this.ctx = ctx;
+		this.mAuth1=auth1;
 	}
 
 	public UpdateTweetTask(
@@ -49,7 +53,6 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 		mProgressDialog.setIndeterminate(true);
 		mProgressDialog.setCanceledOnTouchOutside(false);
 		mProgressDialog.setCancelable(false);
-		mProgressDialog.show();
 		mProgressDialog.setMessage(PB_MSG_UPDATING_TWEET);
 		mProgressDialog.show();
 	}

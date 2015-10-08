@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.bg.HomeTimelineFetcherTask1;
+import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 
@@ -22,6 +23,8 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 
 	private Context mCtx;
 
+	private Auth1 mAuth1;
+
 	public HomeTimelineFrag() {
 		// Required empty public constructor
 	}
@@ -30,6 +33,7 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		mAuth1 = (Auth1) getArguments().getSerializable("AUTH1_SERIALIZABLE");
 	}
 
 	@Override
@@ -54,7 +58,7 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 	}
 
 	@Override
-	public void OnHomeTimelineTaskComplete1(boolean isTResponseSuccessful, MetaHomeTimeline META) {
+	public void onHomeTimelineTaskComplete1(boolean isTResponseSuccessful, MetaHomeTimeline META) {
 
 		if (isTResponseSuccessful && META.equals(null)) {
 
