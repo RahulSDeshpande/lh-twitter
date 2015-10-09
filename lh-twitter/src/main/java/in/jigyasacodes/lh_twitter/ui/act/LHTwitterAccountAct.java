@@ -62,8 +62,8 @@ public class LHTwitterAccountAct extends AppCompatActivity implements NavDrawerF
 				.commit();
 		*/
 
-		drawerFragment = (NavDrawerFrag)
-				getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+		drawerFragment = new NavDrawerFrag();
+		drawerFragment = (NavDrawerFrag)getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 
 		Log.e("$$$$$$$$$$$$$$",drawerFragment.equals(null)+"");
 
@@ -89,7 +89,6 @@ public class LHTwitterAccountAct extends AppCompatActivity implements NavDrawerF
 						+ "\n\n" + ACCESS_KEY + "\n" + ACCESS_SECRET
 						, Toast.LENGTH_LONG).show();
 		*/
-
 	}
 
 	private NavDrawerFrag bundleArgsInNavDrawerFrag() {

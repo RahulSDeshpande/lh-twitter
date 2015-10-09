@@ -227,23 +227,16 @@ public class OAuthActivity extends AppCompatActivity {
 		if (jsonObject != null) {
 
 			auth1.setMetaCreds(JSONUtils.parseVerifyCredsJSON(jsonObject));
+			Log.e(getClass().getSimpleName() + " -> saveTokens()"
+					, "auth1.setMetaCreds() SUCCESSFUL !!\nID :::: " + auth1.getMetaCreds().getId());
 
 		} else {
 
 			Toast.makeText
-					(this
-							, "Failed to authorize you with your Twitter credentials..\n\nPlease try again.."
+					(this, "Failed to authorize you with your Twitter credentials..\n\nPlease try again.."
 							, Toast.LENGTH_LONG).show();
-
 			finish();
 		}
-		Log.e(getClass().getSimpleName() + " -> saveTokens()"
-				, "auth1.setMetaCreds() SUCCESSFUL !!\nID:::::: " + auth1.getMetaCreds().getId());
-
-		//} catch (JsonSyntaxException jse) {
-
-		//Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() UN-SUCCESSFUL !!\n" + jse.getMessage());
-		//}
 
 		completeLoginProcess(LHTwitterAccountAct.class, auth1);
 	}
@@ -274,7 +267,7 @@ public class OAuthActivity extends AppCompatActivity {
 		response = request.send();
 
 		Log.e("----------------------", "4==============================================");
-		Log.e("-----RESPONSE-----", response.getBody());
+		Log.e("-----RESPONSE-----", respBody = response.getBody());
 		Log.e("----------------------", "5==============================================");
 
 		new AsyncTask<Void, Void, String>() {

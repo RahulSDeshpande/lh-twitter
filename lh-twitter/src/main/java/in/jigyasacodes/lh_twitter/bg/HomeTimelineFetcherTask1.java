@@ -5,17 +5,18 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
+import java.util.List;
+
 import in.jigyasacodes.lh_twitter.data.Auth;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
+import in.jigyasacodes.lh_twitter.util.JSONUtils;
 
-public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTimeline> {
+public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, List<MetaHomeTimeline>> {
 
 	private static final String TWITTER_VERIFY_CREDENTIALS_URL
 			= "https://api.twitter.com/1.1/account/verify_credentials.json";
@@ -59,7 +60,7 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 	}
 
 	@Override
-	protected MetaHomeTimeline doInBackground(final String... URLS) {
+	protected List<MetaHomeTimeline> doInBackground(final String... URLS) {
 
 		// //Looper.prepare();
 
@@ -83,12 +84,14 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 		oAuthService.signRequest(accessToken, oAuthRequest);
 
 		try {
-
+		/*
 			return new Gson()
 					.fromJson(oAuthRequest
 							.send()
 							.getBody()
 							, MetaHomeTimeline.class);
+		*/
+			return JSONUtils.verifyAndParseHomeTimelineJSON(oAuthRequest.send().getBody());
 
 		}catch(Exception e) {
 
@@ -97,11 +100,11 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 	}
 
 	@Override
-	protected void onPostExecute(final MetaHomeTimeline META) {
+	protected void onPostExecute(final List<MetaHomeTimeline> META) {
 
 		mProgressDialog.dismiss();
 
-		if (!META.equals(null)) {
+		if (META != null) {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
 			onHomeTimelineTaskCompleteListener1
@@ -119,6 +122,6 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, MetaHomeTi
 
 		void onHomeTimelineTaskComplete1(
 
-				final boolean isTResponseSuccessful, final MetaHomeTimeline META);
+				final boolean isTResponseSuccessful, final List<MetaHomeTimeline> META);
 	}
 }

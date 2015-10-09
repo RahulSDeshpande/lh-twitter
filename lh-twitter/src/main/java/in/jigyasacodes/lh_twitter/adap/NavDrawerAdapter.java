@@ -14,7 +14,6 @@ import java.util.List;
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
 
-
 /**
  * Created by rahulsdeshpande on 5/7/15.
  */

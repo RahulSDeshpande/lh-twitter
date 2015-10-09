@@ -21,7 +21,6 @@
         android:padding="12dp"
         android:scrollHorizontally="false"
         android:textSize="24sp"
-        android:typeface="monospace"
         android:verticalScrollbarPosition="right"/>
 
     <LinearLayout
@@ -38,7 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/tweetbutton"
+            android:background="@drawable/tweet_btn_bg"
             android:padding="16dp"
             android:scaleType="centerInside"/>
 

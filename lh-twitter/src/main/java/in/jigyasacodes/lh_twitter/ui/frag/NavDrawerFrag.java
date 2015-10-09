@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.adap.NavDrawerAdapter;
 import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
-
 
 /**
  * Created by rahulsdeshpande on 5/7/15.
@@ -44,6 +44,7 @@ public class NavDrawerFrag extends Fragment {
 
 	//	private MetaCreds META_CREDS;
 
+	private TextView tvTwitterUserHandle;
 	private ImageView ivProfilePic;
 
 	private Auth1 mAuth1;
@@ -73,8 +74,6 @@ public class NavDrawerFrag extends Fragment {
 
 		super.onCreate(savedInstanceState);
 
-		//	META_CREDS = Auth.getMetaCreds();
-
 		//	mAuth1 = (Auth1) getArguments().getSerializable("AUTH1_SERIALIZABLE");
 
 		strArrTitles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
@@ -84,15 +83,15 @@ public class NavDrawerFrag extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		//return super.onCreateView(inflater, container, savedInstanceState);
-
 		View layout = inflater.inflate(R.layout.frag_nav_drawer, container, false);
 
+		tvTwitterUserHandle = (TextView) layout.findViewById(R.id.tvTwitterUserHandle);
 		ivProfilePic = (ImageView) layout.findViewById(R.id.ivProfilePic);
 
 		/*
-		Toast.makeText(mCtx,"Profile Image URL: "+mAuth1.getMetaCreds().getProfileImageUrl(),Toast.LENGTH_LONG).show();
+		Toast.makeText(mCtx,"Profile Image URL: "+mAuth1.getMetaCreds().getProfileImageUrl(), Toast.LENGTH_LONG).show();
 
+		tvTwitterUserHandle.setText("@"+mAuth1.getMetaCreds().getScreenName());
 		Picasso.with(mCtx).load(mAuth1.getMetaCreds().getProfileImageUrl())
 				.error(R.drawable.dp)
 				.placeholder(R.drawable.dp)
@@ -104,7 +103,8 @@ public class NavDrawerFrag extends Fragment {
 		navDrawerAdap = new NavDrawerAdapter(getActivity(), getData());
 		recyclerView.setAdapter(navDrawerAdap);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-		recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+		recyclerView.addOnItemTouchListener
+				(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
 
 			@Override
 			public void onClick(View view, int position) {
@@ -132,6 +132,7 @@ public class NavDrawerFrag extends Fragment {
 	}
 
 	public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+
 		containerView = getActivity().findViewById(fragmentId);
 		this.drawerLayout = drawerLayout;
 		abdToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {

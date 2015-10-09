@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 import in.jigyasacodes.lh_twitter.data.home_timeline.User;
 import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
@@ -92,6 +95,7 @@ public class JSONUtils {
 		}
 
 		try {
+
 			metaCreds.setIdStr(JSON_OBJ_CERDS.getString("id_str"));
 			metaCreds.setName(JSON_OBJ_CERDS.getString("name"));
 			metaCreds.setScreenName(JSON_OBJ_CERDS.getString("screen_name"));
@@ -136,7 +140,7 @@ public class JSONUtils {
 		return metaUpdateTweet;
 	}
 
-	public static MetaHomeTimeline verifyAndParseHomeTimelineJSON(final String STR_RAW) {
+	public static List<MetaHomeTimeline> verifyAndParseHomeTimelineJSON(final String STR_RAW) {
 
 		try {
 
@@ -151,7 +155,7 @@ public class JSONUtils {
 					"!!!! NO ERROR in STR_RAW !!!!");
 		}
 
-		MetaHomeTimeline metaHomeTimeline = new MetaHomeTimeline();
+		List<MetaHomeTimeline> listMetaHomeTimeline = new ArrayList<>();
 
 		try {
 
@@ -163,24 +167,25 @@ public class JSONUtils {
 
 				final JSONObject JSON_OBJ_TWEET = JSON_ARR_HOME_TIMELINE.getJSONObject(i);
 
+				MetaHomeTimeline metaHomeTimelineTemp = new MetaHomeTimeline();
+				metaHomeTimelineTemp.setIdStr(JSON_OBJ_TWEET.getString("id_str"));
+				metaHomeTimelineTemp.setText(JSON_OBJ_TWEET.getString("text"));
+				metaHomeTimelineTemp.setCreatedAt(JSON_OBJ_TWEET.getString("created_at"));
+				metaHomeTimelineTemp.setSource(JSON_OBJ_TWEET.getString("source"));
 
-				metaHomeTimeline.setIdStr(JSON_OBJ_TWEET.getString("id_str"));
-				metaHomeTimeline.setText(JSON_OBJ_TWEET.getString("text"));
-				metaHomeTimeline.setCreatedAt(JSON_OBJ_TWEET.getString("created_at"));
-				metaHomeTimeline.setSource(JSON_OBJ_TWEET.getString("source"));
-
-				metaHomeTimeline
+				metaHomeTimelineTemp
 						.setUser(JSONUtils.parseHomeTimelineUser(JSON_OBJ_TWEET.getJSONObject("user")));
 
-				metaHomeTimeline.setRetweetCount(JSON_OBJ_TWEET.getInt("retweet_count"));
-				metaHomeTimeline.setRetweeted(JSON_OBJ_TWEET.getBoolean("retweeted"));
+				metaHomeTimelineTemp.setRetweetCount(JSON_OBJ_TWEET.getInt("retweet_count"));
+				metaHomeTimelineTemp.setRetweeted(JSON_OBJ_TWEET.getBoolean("retweeted"));
 
+				listMetaHomeTimeline.add(i, metaHomeTimelineTemp);
 			}
 		} catch (JSONException e) {
 
 			e.printStackTrace();
 		}
-		return metaHomeTimeline;
+		return listMetaHomeTimeline;
 	}
 
 	private static User parseHomeTimelineUser(final JSONObject JSON_OBJ_USER) {

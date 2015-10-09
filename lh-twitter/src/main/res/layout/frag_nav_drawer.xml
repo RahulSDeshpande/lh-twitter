@@ -1,32 +1,63 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#FFFFFF"
-	android:orientation="vertical">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/ivProfilePic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="8dp"
+                android:layout_weight="2"
+                android:scaleType="centerInside"/>
+
+            <TextView
+                android:id="@+id/tvTwitterUserHandle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_weight="8"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="\@TwitterUSerHandle"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/ivProfilePic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_margin="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/twitter_logo_white" />
+            android:scaleType="centerInside"
+            android:src="@drawable/twitter_logo_white"/>
 
     </LinearLayout>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>

@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.List;
+
 import in.jigyasacodes.lh_twitter.R;
+import in.jigyasacodes.lh_twitter.adap.HomeTimelineTweetsAdapter;
 import in.jigyasacodes.lh_twitter.bg.HomeTimelineFetcherTask1;
 import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.CONSTS;
@@ -25,6 +30,8 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 
 	private Auth1 mAuth1;
 
+	private RecyclerView rvHomeTimelineTweets;
+
 	public HomeTimelineFrag() {
 		// Required empty public constructor
 	}
@@ -39,12 +46,14 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.frag_home_timeline, container, false);
+
+		View layout = inflater.inflate(R.layout.frag_home_timeline, container, false);
+
+		rvHomeTimelineTweets = (RecyclerView) layout.findViewById(R.id.rvHomeTimelineTweets);
 
 		this.fetchHomeTimeline(CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
 
-		// Inflate the layout for this fragment
-		return rootView;
+		return layout;
 	}
 
 
@@ -53,12 +62,17 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 		new HomeTimelineFetcherTask1(this, mCtx);
 	}
 
-	private void floodHomeTimelineRV(final MetaHomeTimeline META) {
+	private void floodHomeTimelineRV(final List<MetaHomeTimeline> META) {
+
+		HomeTimelineTweetsAdapter httAdapter = new HomeTimelineTweetsAdapter(this.mCtx,META);
+
+		rvHomeTimelineTweets.setAdapter(httAdapter);
+		rvHomeTimelineTweets.setLayoutManager(new LinearLayoutManager(this.mCtx));
 
 	}
 
 	@Override
-	public void onHomeTimelineTaskComplete1(boolean isTResponseSuccessful, MetaHomeTimeline META) {
+	public void onHomeTimelineTaskComplete1(boolean isTResponseSuccessful, List<MetaHomeTimeline> META) {
 
 		if (isTResponseSuccessful && META.equals(null)) {
 

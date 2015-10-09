@@ -95,6 +95,7 @@ public class UpdateTweetFrag
 			public void onClick(View view) {
 
 				if(etTweet.getText().length() > 0) {
+
 					new UpdateTweetTask(UpdateTweetFrag.this, mCtx,mAuth1)
 							.execute(CONSTS.TWITTER_API.URL_BASE_UPDATE_TWEET
 									, etTweet.getText().toString());
@@ -112,6 +113,6 @@ public class UpdateTweetFrag
 	@Override
 	public void onUpdateTweetTaskComplete(boolean isTResponseSuccessful, MetaUpdateTweet META) {
 
-		Toast.makeText(mCtx.getApplicationContext(), isTResponseSuccessful + "", Toast.LENGTH_LONG).show();
+		Toast.makeText(mCtx.getApplicationContext(), "Your tweet posted successfully !!", Toast.LENGTH_LONG).show();
 	}
 }

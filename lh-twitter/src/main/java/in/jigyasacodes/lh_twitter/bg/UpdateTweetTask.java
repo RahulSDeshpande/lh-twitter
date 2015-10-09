@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
@@ -15,6 +13,7 @@ import org.scribe.oauth.OAuthService;
 import in.jigyasacodes.lh_twitter.data.Auth1;
 import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.update_tweet.MetaUpdateTweet;
+import in.jigyasacodes.lh_twitter.util.JSONUtils;
 
 public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
@@ -85,15 +84,14 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
 			Log.e("doInBackground()", "UPDATE TWEET - SUCCESSFUL");
 
-			return new Gson()
-					.fromJson(oAuthRequest
+			return JSONUtils.parseUpdateTweetJSON
+					(JSONUtils.verifyJSONObject(oAuthRequest
 							.send()
-							.getBody()
-							, MetaUpdateTweet.class);
+							.getBody()));
 
 		} catch (Exception e) {
 
-			Log.e("doInBackground()", "UPDATE TWEET - UN-SUCCESSFUL\n"+e.getMessage());
+			Log.e("doInBackground()", "UPDATE TWEET - UN-SUCCESSFUL\n" + e.getMessage());
 			return null;
 		}
 	}
@@ -103,7 +101,7 @@ public class UpdateTweetTask extends AsyncTask<String, Void, MetaUpdateTweet> {
 
 		mProgressDialog.dismiss();
 
-		if (!META.equals(null)) {
+		if (META != null) {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
 			onUpdateTweetTaskCompleteListener
