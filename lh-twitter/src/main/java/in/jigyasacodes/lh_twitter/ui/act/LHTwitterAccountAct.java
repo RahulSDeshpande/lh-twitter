@@ -24,17 +24,17 @@ import in.jigyasacodes.lh_twitter.ui.frag.UpdateTweetFrag;
 import in.jigyasacodes.lh_twitter.ui.frag.UserAccountFrag;
 
 
-public class TwitterMainAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener {
+public class LHTwitterAccountAct extends AppCompatActivity implements NavDrawerFrag.FragmentDrawerListener {
 
-	private static String TAG = TwitterMainAct.class.getSimpleName();
+	private static String TAG = LHTwitterAccountAct.class.getSimpleName();
 	private static Auth1 mAuth1;
 	private Toolbar mToolbar;
 	private NavDrawerFrag drawerFragment;
 
-	public TwitterMainAct() {
+	public LHTwitterAccountAct() {
 	}
 
-	public TwitterMainAct(OAuthService oauthService, Token accessToken) {
+	public LHTwitterAccountAct(OAuthService oauthService, Token accessToken) {
 		//	this.oAuthService = oauthService;
 		//	this.accessToken = accessToken;
 	}

@@ -15,6 +15,10 @@ public final class CONSTS {
 	public static final String LOGIN_ERROR_USERNAME = "Username must not be blank";
 	public static final String LOGIN_ERROR_Password = "password.length() == 0 !!";
 
+	public static final String NET_ISSUE_AD_TITLE = "You are OFFLINE !!";
+	public static final String NET_ISSUE_AD_MESSAGE = "You are OFFLINE !!\n\nPlease switch ON the internet connection.";
+
+
 	public static OAuthService getOAuthService(Context ctx) {
 
 		return new ServiceBuilder()

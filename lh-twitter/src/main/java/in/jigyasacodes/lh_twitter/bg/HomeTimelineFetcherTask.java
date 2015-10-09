@@ -123,6 +123,6 @@ public class HomeTimelineFetcherTask extends AsyncTask<String, Void, MetaHomeTim
 
 		void onHomeTimelineTaskComplete(
 
-			final boolean isTResponseSuccessful, final MetaHomeTimeline META);
+				final boolean isTResponseSuccessful, final MetaHomeTimeline META);
 	}
 }

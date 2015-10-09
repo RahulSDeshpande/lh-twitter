@@ -11,17 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center_horizontal"
-        android:text="HOME"
-        android:textSize="54dp"
+        android:text="HOME Timeline"
+        android:textSize="40sp"
         android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Edit fragment_home.xml to change the appearance"
-        android:textSize="20dp"
-        android:textStyle="italic"/>
 
 </LinearLayout>

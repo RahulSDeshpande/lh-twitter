@@ -18,7 +18,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="8dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/verified" />
+            android:src="@drawable/twitter_logo_white" />
 
     </LinearLayout>
 

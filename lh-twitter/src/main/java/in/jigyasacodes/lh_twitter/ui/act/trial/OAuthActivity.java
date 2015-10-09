@@ -13,10 +13,9 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
+import org.json.JSONObject;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.OAuthRequest;
@@ -28,8 +27,8 @@ import org.scribe.oauth.OAuthService;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.data.Auth1;
-import in.jigyasacodes.lh_twitter.data.verify_creds.MetaCreds;
-import in.jigyasacodes.lh_twitter.ui.act.TwitterMainAct;
+import in.jigyasacodes.lh_twitter.ui.act.LHTwitterAccountAct;
+import in.jigyasacodes.lh_twitter.util.JSONUtils;
 
 //	↗
 public class OAuthActivity extends AppCompatActivity {
@@ -70,10 +69,11 @@ public class OAuthActivity extends AppCompatActivity {
 
 			if ((url != null) && (url.startsWith(CALLBACK_URL))) {
 
-				// Override webview when user came back to CALLBACK_URL
 				mWebView.stopLoading();
 				mWebView.setVisibility(View.GONE);
-				// Hide webview if necessary
+
+				mProgressDialog.setMessage("Authenticating your credentials with Twitter..");
+				mProgressDialog.show();
 
 				Uri uri = Uri.parse(url);
 
@@ -89,8 +89,8 @@ public class OAuthActivity extends AppCompatActivity {
 					protected void onPreExecute() {
 						super.onPreExecute();
 
-						mProgressDialog.setMessage("Authenticating your credentials with Twitter..");
-						mProgressDialog.show();
+						//	mProgressDialog.setMessage("Authenticating your credentials with Twitter..");
+						//	mProgressDialog.show();
 					}
 
 					@Override
@@ -215,18 +215,37 @@ public class OAuthActivity extends AppCompatActivity {
 		auth1.setAccessToken(mAccessToken);
 		//	auth1.setOAuthService(mOauthService);
 
-		try {
+		//try {
 
-			//	Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
-			auth1.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
-			Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() SUCCESSFULL !!");
+		//	Auth.setMetaCreds(new Gson().fromJson(respBody, MetaCreds.class));
 
-		} catch (JsonSyntaxException jse) {
+		//	Gson gson = new Gson();
+		//	auth1.setMetaCreds(gson.fromJson(respBody, MetaCreds.class));
 
-			Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() SUCCESSFULL !!\n" + jse.getMessage());
+		JSONObject jsonObject = JSONUtils.verifyJSONObject(respBody);
+
+		if (jsonObject != null) {
+
+			auth1.setMetaCreds(JSONUtils.parseVerifyCredsJSON(jsonObject));
+
+		} else {
+
+			Toast.makeText
+					(this
+							, "Failed to authorize you with your Twitter credentials..\n\nPlease try again.."
+							, Toast.LENGTH_LONG).show();
+
+			finish();
 		}
+		Log.e(getClass().getSimpleName() + " -> saveTokens()"
+				, "auth1.setMetaCreds() SUCCESSFUL !!\nID:::::: " + auth1.getMetaCreds().getId());
 
-		completeLoginProcess(TwitterMainAct.class, auth1);
+		//} catch (JsonSyntaxException jse) {
+
+		//Log.e(getClass().getSimpleName() + " -> saveTokens()", "Auth.setMetaCreds() UN-SUCCESSFUL !!\n" + jse.getMessage());
+		//}
+
+		completeLoginProcess(LHTwitterAccountAct.class, auth1);
 	}
 
 	private void completeLoginProcess(Class destinationClass, Auth1 serializableAuth1) {

@@ -13,6 +13,7 @@ import java.util.List;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
+import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 
 
 /**
@@ -21,15 +22,15 @@ import in.jigyasacodes.lh_twitter.data.NavDrawerItem;
 public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimelineTweetsAdapter.MyViewHolder> {
 
 	// Vitthal trial
-	private List<NavDrawerItem> listNavDrawer = Collections.emptyList();
+	private List<MetaHomeTimeline> listTimelineTweets = Collections.emptyList();
 	private LayoutInflater layoutInflater;
 	private Context ctx;
 
-	public HomeTimelineTweetsAdapter(Context context, List<NavDrawerItem> data) {
+	public HomeTimelineTweetsAdapter(Context context, List<MetaHomeTimeline> listTimelineTweets) {
 
 		this.ctx = context;
 		layoutInflater = LayoutInflater.from(this.ctx);
-		this.listNavDrawer = data;
+		this.listTimelineTweets = listTimelineTweets;
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 	@Override
 	public void onBindViewHolder(MyViewHolder holder, int position) {
 
-		NavDrawerItem currentNavDrawerItem = listNavDrawer.get(position);
+		NavDrawerItem currentNavDrawerItem = null;//	= listNavDrawer.get(position);
 
 		holder.title.setText(currentNavDrawerItem.getTitle());
 		holder.ivTitlePic.setImageResource(currentNavDrawerItem.getTitlePic());
@@ -53,12 +54,12 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 	@Override
 	public int getItemCount() {
 
-		return listNavDrawer.size();
+		return 0;	//	listNavDrawer.size();
 	}
 
 	public void delete(int position) {
 
-		listNavDrawer.remove(position);
+		//listNavDrawer.remove(position);
 		notifyItemRemoved(position);
 	}
 
@@ -66,7 +67,6 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 
 		TextView title;
 		ImageView ivTitlePic;
-
 
 		public MyViewHolder(View itemView) {
 

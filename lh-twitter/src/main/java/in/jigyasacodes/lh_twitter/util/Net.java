@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class Net {
 
-	static public boolean haveNetworkConnection(Context ctx) {
+	static public boolean isNetworkAvailable(Context ctx) {
 
 		boolean isWifiConn = false;
 		boolean isMobileConn = false;
