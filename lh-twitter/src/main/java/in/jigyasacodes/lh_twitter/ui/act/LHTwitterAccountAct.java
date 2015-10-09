@@ -203,6 +203,7 @@ public class LHTwitterAccountAct extends AppCompatActivity implements NavDrawerF
 	@Override
 	public void onBackPressed() {
 
-		super.onBackPressed();
+		//	super.onBackPressed();
+		super.finish();
 	}
 }

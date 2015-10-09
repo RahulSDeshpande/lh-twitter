@@ -1,6 +1,7 @@
 package in.jigyasacodes.lh_twitter.adap;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import in.jigyasacodes.lh_twitter.R;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
+import in.jigyasacodes.lh_twitter.util.FontUtils;
 
 
 /**
@@ -27,8 +29,7 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 	private LayoutInflater mLayoutInflater;
 	private Context mCtx;
 
-	public HomeTimelineTweetsAdapter(Context context, final List<MetaHomeTimeline> LIST_META_HOME_TIMELINE)
-	{
+	public HomeTimelineTweetsAdapter(Context context, final List<MetaHomeTimeline> LIST_META_HOME_TIMELINE) {
 		this.mCtx = context;
 		mLayoutInflater = LayoutInflater.from(this.mCtx);
 
@@ -38,27 +39,49 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 	@Override
 	public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = mLayoutInflater.inflate(R.layout.tweet_timeline_rv_item_1, parent, false);
+		View view = mLayoutInflater.inflate(R.layout.tweet_timeline_rv_item, parent, false);
 		return new RecyclerViewHolder(view);
 	}
 
 	@Override
 	public void onBindViewHolder(RecyclerViewHolder rvHolder, int position) {
 
-		MetaHomeTimeline  metaHomeTimelineCurrent = mListMetaHomeTimeline.get(position);
+		MetaHomeTimeline metaHomeTimelineCurrent = mListMetaHomeTimeline.get(position);
 
 		Picasso.with(this.mCtx).load(metaHomeTimelineCurrent.getUser().getProfileImageUrl())
 				.error(R.drawable.username)
 				.placeholder(R.drawable.username)
 				.into(rvHolder.ivProfilePic);
 
-		rvHolder.tvUserHandle.setText(metaHomeTimelineCurrent.getUser().getScreenName());
+		rvHolder.tvUserHandle = (TextView) FontUtils.typeFaceApplier(this.mCtx,
+				rvHolder.tvUserHandle, FontUtils.JCLH_FONT_DOSIS_SEMIBOLD);
+		rvHolder.tvUserHandle.setText("@" + metaHomeTimelineCurrent.getUser().getScreenName());
+
+		rvHolder.tvUserHandle = (TextView) FontUtils.typeFaceApplier(this.mCtx,
+				rvHolder.tvTweetText, FontUtils.JCLH_FONT_DOSIS_SEMIBOLD);
 		rvHolder.tvTweetText.setText(metaHomeTimelineCurrent.getText());
 	}
 
 	@Override
 	public int getItemCount() {
-		return 0;
+
+		return mListMetaHomeTimeline.size();
+	}
+
+	private View typeFaceApplier1(View view, String strFontName) {
+
+		Typeface tf = Typeface.createFromAsset(mCtx.getAssets(), strFontName);
+
+		if (view instanceof Button) {
+
+			((Button) view).setTypeface(tf);
+
+		} else {
+
+			((TextView) view).setTypeface(tf);
+		}
+
+		return view;
 	}
 
 	public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +94,7 @@ public class HomeTimelineTweetsAdapter extends RecyclerView.Adapter<HomeTimeline
 			super(itemView);
 
 			tvUserHandle = (TextView) itemView.findViewById(R.id.tvUserHandle);
-			tvTweetText = (Button) itemView.findViewById(R.id.tvTweetText);
+			tvTweetText = (TextView) itemView.findViewById(R.id.tvTweetText);
 			ivProfilePic = (ImageView) itemView.findViewById(R.id.ivProfilePic);
 		}
 	}

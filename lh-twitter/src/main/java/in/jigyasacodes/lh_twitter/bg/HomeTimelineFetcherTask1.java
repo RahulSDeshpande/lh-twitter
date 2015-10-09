@@ -12,14 +12,13 @@ import org.scribe.oauth.OAuthService;
 
 import java.util.List;
 
-import in.jigyasacodes.lh_twitter.data.Auth;
+import in.jigyasacodes.lh_twitter.data.Auth1;
+import in.jigyasacodes.lh_twitter.data.CONSTS;
 import in.jigyasacodes.lh_twitter.data.home_timeline.MetaHomeTimeline;
 import in.jigyasacodes.lh_twitter.util.JSONUtils;
 
 public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, List<MetaHomeTimeline>> {
 
-	private static final String TWITTER_VERIFY_CREDENTIALS_URL
-			= "https://api.twitter.com/1.1/account/verify_credentials.json";
 	private final String PB_MSG_FETCHING_TWEETS = "Fetching your Home Timeline Tweets for you from the Twitter..";
 	//	private OAuthService mOauthService;
 	//	private Token mRequestToken, mAccessToken;
@@ -27,14 +26,17 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, List<MetaH
 	private ProgressDialog mProgressDialog = null;
 	private Context ctx = null;
 
+	private Auth1 mAuth1;
+
 	private OnHomeTimelineTaskCompleteListener1 onHomeTimelineTaskCompleteListener1;
 	//	private int intPaginationValue = 1;
 
 	public HomeTimelineFetcherTask1(
-			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx) {
+			OnHomeTimelineTaskCompleteListener1 thiss, Context ctx, Auth1 auth1) {
 
 		onHomeTimelineTaskCompleteListener1 = thiss;
 		this.ctx = ctx;
+		this.mAuth1=auth1;
 	}
 
 	public HomeTimelineFetcherTask1(
@@ -75,9 +77,12 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, List<MetaH
 		 *
 		 **/
 
-		OAuthService oAuthService = Auth.getOAuthService();
+		//	OAuthService oAuthService = Auth.getOAuthService();
 		//	Token requestToken = Auth.getRequestToken();
-		Token accessToken = Auth.getAccessToken();
+
+		OAuthService oAuthService = CONSTS.getOAuthService(ctx);
+
+		Token accessToken = mAuth1.getAccessToken();
 		OAuthRequest oAuthRequest =
 				new OAuthRequest(Verb.GET, URLS[0]);
 
@@ -100,15 +105,15 @@ public class HomeTimelineFetcherTask1 extends AsyncTask<String, Void, List<MetaH
 	}
 
 	@Override
-	protected void onPostExecute(final List<MetaHomeTimeline> META) {
+	protected void onPostExecute(final List<MetaHomeTimeline> LIST_META_HOME_TIMELINE) {
 
 		mProgressDialog.dismiss();
 
-		if (META != null) {
+		if (LIST_META_HOME_TIMELINE != null) {
 
 			Log.e("fkkkkkkkkkk--", "onPostExecute() - if () ->  1");
 			onHomeTimelineTaskCompleteListener1
-					.onHomeTimelineTaskComplete1(true, META);
+					.onHomeTimelineTaskComplete1(true, LIST_META_HOME_TIMELINE);
 
 		} else {
 

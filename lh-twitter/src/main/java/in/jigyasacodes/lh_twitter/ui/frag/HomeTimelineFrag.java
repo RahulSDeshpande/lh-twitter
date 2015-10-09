@@ -51,7 +51,7 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 
 		rvHomeTimelineTweets = (RecyclerView) layout.findViewById(R.id.rvHomeTimelineTweets);
 
-		this.fetchHomeTimeline(CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE);
+		this.fetchHomeTimeline(CONSTS.TWITTER_API.URL_BASE_HOME_TIMELINE + "?count=" + 20);
 
 		return layout;
 	}
@@ -59,12 +59,12 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 
 	private void fetchHomeTimeline(final String TWITTER_URL) {
 
-		new HomeTimelineFetcherTask1(this, mCtx);
+		new HomeTimelineFetcherTask1(this, mCtx, mAuth1).execute(TWITTER_URL);
 	}
 
 	private void floodHomeTimelineRV(final List<MetaHomeTimeline> META) {
 
-		HomeTimelineTweetsAdapter httAdapter = new HomeTimelineTweetsAdapter(this.mCtx,META);
+		HomeTimelineTweetsAdapter httAdapter = new HomeTimelineTweetsAdapter(this.mCtx, META);
 
 		rvHomeTimelineTweets.setAdapter(httAdapter);
 		rvHomeTimelineTweets.setLayoutManager(new LinearLayoutManager(this.mCtx));
@@ -72,11 +72,13 @@ public class HomeTimelineFrag extends Fragment implements HomeTimelineFetcherTas
 	}
 
 	@Override
-	public void onHomeTimelineTaskComplete1(boolean isTResponseSuccessful, List<MetaHomeTimeline> META) {
+	public void onHomeTimelineTaskComplete1(boolean isTResponseSuccessful, List<MetaHomeTimeline> LIST_META_HOME_TIMELINE) {
 
-		if (isTResponseSuccessful && META.equals(null)) {
+		if (isTResponseSuccessful && (LIST_META_HOME_TIMELINE != null)) {
 
-			floodHomeTimelineRV(META);
+			Toast.makeText(mCtx, LIST_META_HOME_TIMELINE.size() + " Tweets loaded !!",
+					Toast.LENGTH_LONG).show();
+			floodHomeTimelineRV(LIST_META_HOME_TIMELINE);
 
 		} else {
 			Toast.makeText(mCtx,
